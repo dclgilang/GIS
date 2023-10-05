@@ -52,5 +52,5 @@ data class Mapmesearch(
 )
 
 data class MapMee (
-    val list_ticket : Location
+    val list_ticket : MarkerTripleE
 )

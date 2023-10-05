@@ -196,7 +196,7 @@
                         android:textSize="12sp" />
 
                     <TextView
-                        android:id="@+id/location"
+                        android:id="@+id/marker"
                         style="@style/text_regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

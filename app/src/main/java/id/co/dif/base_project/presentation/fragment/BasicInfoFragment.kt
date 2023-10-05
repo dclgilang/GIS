@@ -58,7 +58,7 @@ class BasicInfoFragment : BaseFragment<BasicInfoViewModel, BasicInfoBinding>() {
                 binding.fullname.setText(it.data.fullname.orDefault())
                 binding.position.setText(it.data.position.orDefault())
                 binding.position.setText(session?.emp_position.orDefault())
-                binding.location.setText(it.data.location.orDefault())
+                binding.marker.setText(it.data.location.orDefault())
                 binding.phone.setText(it.data.phone.orDefault())
                 binding.email.setText(it.data.email.orDefault())
                 binding.gender.setText(it.data.gender.orDefault())

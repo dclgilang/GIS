@@ -9,22 +9,20 @@ import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseFragment
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.FragmentSelectEngineerItemBinding
-import id.co.dif.base_project.utils.base64ImageToBitmap
 import id.co.dif.base_project.utils.colorRes
 import id.co.dif.base_project.utils.orDefault
 import id.co.dif.base_project.utils.loadImage
-import id.co.dif.base_project.utils.shimmerDrawable
 import id.co.dif.base_project.utils.toFormattedDistance
 import id.co.dif.base_project.viewmodel.SelectEngineerItemViewModel
 
-class SelectEngineerItemFragment(private val engineer: Location) :
+class SelectEngineerItemFragment(private val engineer: MarkerTripleE) :
     BaseFragment<SelectEngineerItemViewModel, FragmentSelectEngineerItemBinding>() {
     override val layoutResId: Int
         get() = R.layout.fragment_select_engineer_item
-    var onSelectEngineerClicked: (engineer: Location) -> Unit = { _ -> }
-    var onClickPing: (engineer: Location) -> Unit = { _ -> }
+    var onSelectEngineerClicked: (engineer: MarkerTripleE) -> Unit = { _ -> }
+    var onClickPing: (engineer: MarkerTripleE) -> Unit = { _ -> }
     var shouldShowArrow = false
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
         handleEngineerReadyState(engineer)
@@ -49,7 +47,7 @@ class SelectEngineerItemFragment(private val engineer: Location) :
         )
     }
 
-    private fun handleEngineerReadyState(engineer: Location) {
+    private fun handleEngineerReadyState(engineer: MarkerTripleE) {
         if (engineer.locationIsUpdated == true) {
             handleEngineerWithinSiteRadius(engineer)
             return
@@ -58,7 +56,7 @@ class SelectEngineerItemFragment(private val engineer: Location) :
         handleEngineerNotReady(engineer)
     }
 
-    private fun handleEngineerWithinSiteRadius(engineer: Location) {
+    private fun handleEngineerWithinSiteRadius(engineer: MarkerTripleE) {
         if (engineer.isWithinSiteRadius == true) {
             binding.btnSelectEngineer.setOnClickListener {
                 onSelectEngineerClicked(engineer)
@@ -91,7 +89,7 @@ class SelectEngineerItemFragment(private val engineer: Location) :
 
     }
 
-    private fun handleEngineerNotReady(engineer: Location) {
+    private fun handleEngineerNotReady(engineer: MarkerTripleE) {
         binding.btnSelectEngineer.setOnClickListener {
             currentActivity.showAlert(
                 context = requireContext(),

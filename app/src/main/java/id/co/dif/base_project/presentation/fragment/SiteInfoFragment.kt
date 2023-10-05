@@ -3,14 +3,14 @@ package id.co.dif.base_project.presentation.fragment
 import android.os.Bundle
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseFragment
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.FragmentSiteInfoBinding
 import id.co.dif.base_project.utils.orDefault
 import id.co.dif.base_project.viewmodel.SiteInfoViewModel
 
 class SiteInfoFragment : BaseFragment<SiteInfoViewModel, FragmentSiteInfoBinding>() {
     override val layoutResId = R.layout.fragment_site_info
-    private var selectedSite: Location? = null
+    private var selectedSite: MarkerTripleE? = null
 
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
 

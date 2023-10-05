@@ -504,7 +504,7 @@ fun Context.toBitmapDescriptor(@DrawableRes id: Int): BitmapDescriptor? {
     )
 }
 
-fun Context.makeClusterItemMarker(bitmap: Bitmap, item: id.co.dif.base_project.data.Location? = null): Bitmap {
+fun Context.makeClusterItemMarker(bitmap: Bitmap, item: id.co.dif.base_project.data.MarkerTripleE? = null): Bitmap {
     val li = LayoutInflater.from(this)
     val markerBinding = ItemMapMarkerBinding.inflate(li)
     markerBinding.imgMarker.setImageBitmap(bitmap)

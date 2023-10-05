@@ -195,7 +195,7 @@ class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(), K
                 setupAutoCompleteEngineers(it.data.list)
             }
         }
-        viewModel.responseSiteLocation.observe(lifecycleOwner) {
+        viewModel.responseSiteMarker.observe(lifecycleOwner) {
             if (it.status in StatusCode.SUCCESS) {
                 preferences.savedAllSite.value = it.data.list
                 setAutoCompleteSite(it.data.list)
@@ -413,11 +413,11 @@ class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(), K
 
     }
 
-    private fun setupAutoCompleteEngineers(locations: List<Location>) {
-        val adapter: ArrayAdapter<Location> = ArrayAdapter<Location>(
+    private fun setupAutoCompleteEngineers(markers: List<MarkerTripleE>) {
+        val adapter: ArrayAdapter<MarkerTripleE> = ArrayAdapter<MarkerTripleE>(
             requireContext(),
             R.layout.item_spinner_dropdown,
-            locations
+            markers
         )
 
         binding.etTicFieldEngineer.setAdapter(adapter)
@@ -427,8 +427,8 @@ class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(), K
         }
     }
 
-    private fun setAutoCompleteSite(list: List<Location>) {
-        val adapter: ArrayAdapter<Location> = ArrayAdapter<Location>(
+    private fun setAutoCompleteSite(list: List<MarkerTripleE>) {
+        val adapter: ArrayAdapter<MarkerTripleE> = ArrayAdapter<MarkerTripleE>(
             requireContext(),
             R.layout.item_spinner_dropdown,
             list
@@ -744,7 +744,7 @@ class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(), K
 
                 SELECT_ENGINEER_REQUEST_CODE -> {
                     data?.let { intent ->
-                        val selectedEngineer = intent.getSerializableExtra("selected_engineer") as Location?
+                        val selectedEngineer = intent.getSerializableExtra("selected_engineer") as MarkerTripleE?
                         viewModel.selectedEngineer.value = selectedEngineer
                         selectedEngineer?.name.log("selected_engineer")
                     }
@@ -752,7 +752,7 @@ class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBinding>(), K
 
                 SELECT_SITE_REQUEST_CODE -> {
                     data?.let { intent ->
-                        val selectedSite = intent.getSerializableExtra("selected_site") as Location?
+                        val selectedSite = intent.getSerializableExtra("selected_site") as MarkerTripleE?
                         viewModel.selectedSite.value = selectedSite
                     }
                 }

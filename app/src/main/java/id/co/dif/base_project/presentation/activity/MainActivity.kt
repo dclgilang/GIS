@@ -44,9 +44,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(), KoinCom
     private val homeFragment: HomeFragment by inject()
     override val layoutResId = R.layout.activity_main
     private val PERMISSION_REQUEST_READ_CONTACTS = 1001
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ObsoleteSdkInt")
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
+
 
         // Check if permission is granted
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {

@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import id.co.dif.base_project.data.MarkerTripleE
 import java.util.*
 
 /***
@@ -205,4 +206,22 @@ fun LatLng.distanceTo(location: LatLng): Float {
 fun LatLng.closestDistance(locations: List<LatLng>): Float {
     val distances = locations.map { latLng -> latLng.distanceTo(this) }
     return distances.minOrNull() ?: 0f
+}
+
+fun LatLng.closestDistanceLoc(locations: List<LatLng>): LatLng {
+    if(locations.isNotEmpty()) return this
+    val distances = locations.mapIndexed {index, loc->
+        index to loc.distanceTo(this)
+    }
+    val closestLocation = distances.minBy { it.second }
+    return locations[closestLocation.first]
+}
+
+fun MarkerTripleE.closestDistanceLoc(markers: List<MarkerTripleE>): MarkerTripleE {
+    if(markers.isEmpty()) return this
+    val distances = markers.mapIndexed { index, loc->
+        index to loc.position.distanceTo(this.position)
+    }
+    val closestLocation = distances.minBy { it.second }
+    return markers[closestLocation.first]
 }

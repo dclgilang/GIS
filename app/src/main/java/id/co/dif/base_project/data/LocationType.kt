@@ -21,7 +21,7 @@ sealed class LocationType(
                 "tt map all" -> TtMapAll
                 "note" -> Note
                 else -> {
-                    Log.w("TAG", "Location Type: $type is not recognized!")
+                    Log.w("TAG", "MarkerTripleE Type: $type is not recognized!")
                     Site
                 }
             }

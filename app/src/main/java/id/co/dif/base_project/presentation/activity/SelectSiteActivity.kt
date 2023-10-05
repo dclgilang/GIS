@@ -1,39 +1,25 @@
 package id.co.dif.base_project.presentation.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
-import androidx.core.view.isVisible
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
-import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseActivity
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import id.co.dif.base_project.databinding.ActivitySelectSiteBinding
-import id.co.dif.base_project.presentation.dialog.SelectEngineerDialog
-import id.co.dif.base_project.presentation.fragment.DetailFragment.Companion.SELECT_ENGINEER_REQUEST_CODE
 import id.co.dif.base_project.presentation.fragment.MarkerPopupDialog
 import id.co.dif.base_project.utils.*
 import id.co.dif.base_project.viewmodel.SelectSiteViewModel
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 /***
  * Created by kikiprayudi
@@ -42,10 +28,10 @@ import java.util.concurrent.TimeUnit
  */
 class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteBinding>(),
     OnMapReadyCallback,
-    ClusterManager.OnClusterItemClickListener<Location>,
-    ClusterManager.OnClusterClickListener<Location> {
+    ClusterManager.OnClusterItemClickListener<MarkerTripleE>,
+    ClusterManager.OnClusterClickListener<MarkerTripleE> {
     override val layoutResId = R.layout.activity_select_site
-    private var clusterManager: ClusterManager<Location>? = null
+    private var clusterManager: ClusterManager<MarkerTripleE>? = null
     private var countDownTimer: CountDownTimer? = null
     private lateinit var map: GoogleMap
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
@@ -54,7 +40,7 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
             selectSite(null)
         }
 
-        viewModel.responseListLocation.observe(lifecycleOwner) {
+        viewModel.responseListMarker.observe(lifecycleOwner) {
             if (it.status == 200 && it.data.list.isNotEmpty()) {
                 clusterManager?.let { clusterManager ->
                     val hashSet = HashSet<String>()
@@ -66,7 +52,7 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
                         location.image?.let { hashSet.add(it) }
                     }
                     map.zoom(clusterManager, it.data.list)
-                    val adapter: ArrayAdapter<Location> = ArrayAdapter<Location>(
+                    val adapter: ArrayAdapter<MarkerTripleE> = ArrayAdapter<MarkerTripleE>(
                         this,
                         R.layout.item_spinner_dropdown,
                         it.data.list
@@ -119,10 +105,10 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
         }
     }
 
-    override fun onClusterItemClick(location: Location): Boolean {
-        when (LocationType.fromString(location.type)) {
+    override fun onClusterItemClick(marker: MarkerTripleE): Boolean {
+        when (LocationType.fromString(marker.type)) {
             LocationType.TtMapAll -> {
-                MarkerPopupDialog.newInstance(location = location).show(
+                MarkerPopupDialog.newInstance(marker = marker).show(
                     supportFragmentManager,
                     MarkerPopupDialog::class.java.name
                 )
@@ -130,8 +116,8 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
 
             LocationType.TtSiteAll -> {
                 clusterManager?.let { clusterManager ->
-                    map.zoom(clusterManager, location) {
-                        val popup = MarkerPopupDialog.newInstance(location = location)
+                    map.zoom(clusterManager, marker) {
+                        val popup = MarkerPopupDialog.newInstance(marker = marker)
                         popup.onSiteIsSelected = {
                             selectSite(it)
                         }
@@ -156,7 +142,7 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
         }
     }
 
-    override fun onClusterClick(cluster: Cluster<Location>): Boolean {
+    override fun onClusterClick(cluster: Cluster<MarkerTripleE>): Boolean {
         clusterManager?.let { clusterManager ->
             map.zoom(clusterManager, cluster.items.toList()) {
                 binding.etSearch.clearFocus()
@@ -165,7 +151,7 @@ class SelectSiteActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteB
         return true
     }
 
-    private fun selectSite(selectedSite: Location?) {
+    private fun selectSite(selectedSite: MarkerTripleE?) {
         val intent = Intent()
         intent.putExtra("selected_site", selectedSite)
         setResult(RESULT_OK, intent)

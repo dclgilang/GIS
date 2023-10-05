@@ -8,27 +8,27 @@ import retrofit2.http.*
 
 interface ApiServices {
 
-    @GET("location")
-    suspend fun getListLocation(): BaseResponse<Location>
+    @GET("marker")
+    suspend fun getListLocation(): BaseResponse<MarkerTripleE>
 
     @GET("site")
-    suspend fun getListSite(): BaseResponse<Location>
+    suspend fun getListSite(): BaseResponse<MarkerTripleE>
 
     @GET("site/{site_name}")
     suspend fun getSiteByName(
         @Path("site_name") siteName: String
-    ): BaseResponse<List<Location>>
+    ): BaseResponse<List<MarkerTripleE>>
 
     @GET("ops_ticket/get-engineer")
     suspend fun getNearestTechnician(
         @Header("Authorization") bearerToken: String?,
         @Query("id_site") idSite: Int?,
-    ): BaseResponseList<Location>
+    ): BaseResponseList<MarkerTripleE>
 
     @GET("project?category=TT Map Me")
     suspend fun mapmedetil(
         @Header("Authorization") bearerToken: String?,
-    ): BaseResponseList<Location>
+    ): BaseResponseList<MarkerTripleE>
 
     @GET("ops_ticket/")
     suspend fun getListTroubleTicket(
@@ -50,7 +50,7 @@ interface ApiServices {
 //        @Query("start_date") from: String?,
 //        @Query("end_date") until: String?,
 ////        @Body param: MutableMap<String, Any?>
-////    ): BaseResponse<List<Location>>
+////    ): BaseResponse<List<MarkerTripleE>>
 //    ): BaseResponseList<TroubleTicket>
 
 
@@ -233,8 +233,8 @@ interface ApiServices {
         @Header("Authorization") bearerToken: String?,
         @Query("search") search: String?,
 //        @Body param: MutableMap<String, Any?>
-//    ): BaseResponse<List<Location>>
-    ): BaseResponseList<Location>
+//    ): BaseResponse<List<MarkerTripleE>>
+    ): BaseResponseList<MarkerTripleE>
 
     @PUT("ops_ticket/update_notes/{id}")
     suspend fun editNotes(
@@ -276,24 +276,24 @@ interface ApiServices {
         @Header("Authorization") bearerToken: String?,
         @Query("search") search: String?,
 //        @Body param: MutableMap<String, Any?>
-//    ): BaseResponse<List<Location>>
-    ): BaseResponseList<Location>
+//    ): BaseResponse<List<MarkerTripleE>>
+    ): BaseResponseList<MarkerTripleE>
 
     @GET("project/mapme")
     suspend fun mapMe(
         @Header("Authorization") bearerToken: String?,
         @Query("search") search: String?,
 //        @Body param: MutableMap<String, Any?>
-//    ): BaseResponse<List<Location>>
-    ): BaseResponseList<Location>
+//    ): BaseResponse<List<MarkerTripleE>>
+    ): BaseResponseList<MarkerTripleE>
 
     @GET("project/map_alarm")
     suspend fun mapalarm(
         @Header("Authorization") bearerToken: String?,
         @Query("search") search: String?,
 //        @Body param: MutableMap<String, Any?>
-//    ): BaseResponse<List<Location>>
-    ): BaseResponseList<Location>
+//    ): BaseResponse<List<MarkerTripleE>>
+    ): BaseResponseList<MarkerTripleE>
 
 
 
@@ -301,8 +301,8 @@ interface ApiServices {
 //    suspend fun getSiteById(
 //        @Header("Authorization") bearerToken: String?,
 ////        @Body param: MutableMap<String, Any?>
-////    ): BaseResponse<List<Location>>
-//    ): BaseResponse<Location>
+////    ): BaseResponse<List<MarkerTripleE>>
+//    ): BaseResponse<MarkerTripleE>
 
     @GET("project?search=&category=TT Map Me")
     suspend fun getEngineer(
@@ -407,7 +407,7 @@ interface ApiServices {
 //    ) : BaseResponse<SparepartData>
 
 
-    @PUT("employee/profile/update/location")
+    @PUT("employee/profile/update/marker")
     suspend fun putUpdateLocation(
         @Header("Authorization") bearerToken: String?,
         @Body param: MutableMap<String, Any?>

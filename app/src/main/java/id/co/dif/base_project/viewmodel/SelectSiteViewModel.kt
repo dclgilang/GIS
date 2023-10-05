@@ -3,22 +3,20 @@ package id.co.dif.base_project.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
 import id.co.dif.base_project.base.BaseResponse
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
-import id.co.dif.base_project.data.Location
-import id.co.dif.base_project.data.SearchengineerData
+import id.co.dif.base_project.data.MarkerTripleE
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class SelectSiteViewModel : BaseViewModel() {
-    var pingEnginer: Location? = null
-    var selectedSite: Location? = null
-    var responseListLocation = MutableLiveData<BaseResponseList<Location>>()
-    var responseNearestTechnician = MutableLiveData<BaseResponseList<Location>>()
+    var pingEnginer: MarkerTripleE? = null
+    var selectedSite: MarkerTripleE? = null
+    var responseListMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
+    var responseNearestTechnician = MutableLiveData<BaseResponseList<MarkerTripleE>>()
     var responsePingEngineerToSendTheirLocation = MutableLiveData<BaseResponse<Any>>()
-    var lastLocationZoomed: Location? = null
+    var lastMarkerZoomed: MarkerTripleE? = null
     var zoomMaps = true
 
     fun pingEngineerToSendTheirLocation(engineerId: Int?) {
@@ -49,7 +47,7 @@ class SelectSiteViewModel : BaseViewModel() {
                 bearerToken = "Bearer ${session?.token_access}",
                 search = search,
             )
-            responseListLocation.postValue(response)
+            responseListMarker.postValue(response)
             dissmissLoading()
         }
     }

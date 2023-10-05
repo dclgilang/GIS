@@ -34,8 +34,8 @@ class SiteDetails(
     @SerializedName("technology_site_id") val technologySiteId: String? = null,
     @SerializedName("technology_system") val technologySystem: String? = null
 ) : BaseData() {
-    fun toSiteLocation(): Location {
-        return Location(
+    fun toSiteLocation(): MarkerTripleE {
+        return MarkerTripleE(
             image = null,
             site_name = this.siteName ?: "",
             tic_site = "",

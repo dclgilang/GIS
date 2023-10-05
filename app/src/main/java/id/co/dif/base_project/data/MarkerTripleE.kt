@@ -1,8 +1,10 @@
 package id.co.dif.base_project.data
 
+import android.location.Location
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 import com.google.maps.android.clustering.ClusterItem
+import id.co.dif.base_project.utils.log
 import id.co.dif.base_project.utils.orDefault
 import java.io.Serializable
 
@@ -11,7 +13,7 @@ import java.io.Serializable
  * on Wednesday, 01/03/23 02:41
  *
  */
-class Location(
+class MarkerTripleE(
     @SerializedName("foto", alternate = ["image"]) var image: String? = null,
     val site_name: String = "",
     val tic_site: String = "",
@@ -51,6 +53,19 @@ class Location(
         return LatLng(latitude.orDefault("0").toDouble(), longtitude.orDefault("0").toDouble())
     }
 
+    fun getLoc(): Location{
+        val id = (id ?: site_id).toString()
+        id.log("sdfdsf")
+        return Location(id).apply {
+            this.latitude = position.latitude
+            this.longitude = position.longitude
+        }.log("sddfdfdsfdsfdsf"){it.provider}
+    }
+
+    fun getId(): Int{
+        return (site_id ?: id ?: hashCode())
+    }
+
     override fun getTitle(): String? {
         if (type == "technician") {
             return name
@@ -71,7 +86,7 @@ class Location(
         return 0f
     }
 //    override fun toString(): String {
-//        return "Location(image=$image, site_name='$site_name', tic_site='$tic_site', " +
+//        return "MarkerTripleE(image=$image, site_name='$site_name', tic_site='$tic_site', " +
 //                "countdown=$countdown, latitude=$latitude, longtitude=$longtitude, " +
 //                "site_id=$site_id, site_id_customer='$site_id_customer', " +
 //                "site_addre_street='$site_addre_street', mobile='$mobile', name='$name', " +

@@ -38,7 +38,7 @@
     <string name="title_skill">Skills</string>
     <string name="full_name">Full Name</string>
     <string name="position">Position</string>
-    <string name="location">Location</string>
+    <string name="marker">Location</string>
     <string name="phone">Phone</string>
     <string name="email">Email</string>
     <string name="gender">Gender</string>
@@ -145,7 +145,7 @@
     <string name="timeline">TIMELINE</string>
     <string name="log">LOG</string>
     <string name="sp_handling">SP Handling</string>
-    <string name="you_are_still_missing_the_following_email_alternative_nik_ktp_npwp_number_bpjs_number_bpjs_kesehatan_description_about_yourself_minimum_150_characters_city_or_town_of_your_location_cv_at_least_100_character_required_to_describe_about_your_work_experience_to_make_your_profile_100_completed">You are still missing the following: email alternative, NIK, KTP, NPWP number, BPJS number, BPJS Kesehatan, description about yourself minimum 150 characters, city or town of your location, CV, at least 100 character required to describe about your work experience, to make your profile 100% completed!</string>
+    <string name="you_are_still_missing_the_following_email_alternative_nik_ktp_npwp_number_bpjs_number_bpjs_kesehatan_description_about_yourself_minimum_150_characters_city_or_town_of_your_location_cv_at_least_100_character_required_to_describe_about_your_work_experience_to_make_your_profile_100_completed">You are still missing the following: email alternative, NIK, KTP, NPWP number, BPJS number, BPJS Kesehatan, description about yourself minimum 150 characters, city or town of your marker, CV, at least 100 character required to describe about your work experience, to make your profile 100% completed!</string>
     <string name="my_open_ticket">My Open Ticket</string>
     <string name="open_ticket_area">Open Ticket Area</string>
     <string name="my_ticket_handling_contribution">My Ticket Handling Contribution</string>
@@ -289,7 +289,7 @@
     <string name="usage_rank_n_27_213">Usage Rank:\n<b>#27/#213</b></string>
     <string name="total_time">Total Time:\n<b>%1$d hours %2$d minutes</b></string>
     <string name="refresh_engineer">Refresh engineer</string>
-    <string name="requesting_engineer_latest_location">Requesting engineers update location <b>%1$s</b></string>
+    <string name="requesting_engineer_latest_location">Requesting engineers update marker <b>%1$s</b></string>
     <string name="cannot_proceed_with_this_engineer">Cannot proceed with this engineer</string>
     <string name="cancel">Cancel</string>
     <string name="about_myself">About myself</string>
@@ -350,7 +350,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="e_mail_alternative">E-Mail Alternative</string>
     <string name="your_alternative_mail">Your alternative mail</string>
-    <string name="your_location">Your location</string>
+    <string name="your_location">Your marker</string>
     <string name="latitude">Latitude</string>
     <string name="your_latitude">Your latitude</string>
     <string name="longtitude">Longtitude</string>
@@ -384,7 +384,7 @@
     <string name="this_engineer_is_not_within_the_site_radius_you_can_still_proceed_but_not_advisable">This engineer is not within the site radius. You can still proceed, but not advisable.</string>
     <string name="proceed">Proceed</string>
     <string name="dismiss">Dismiss</string>
-    <string name="this_engineer_had_not_updated_their_latest_location_yet_you_can_still_proceed_but_the_engineer_is_not_guarantee_to_be_within_the_site_radius_at_the_moment">This engineer had not updated their latest location yet. You can still proceed, but the engineer is not guarantee to be within the site radius at the moment</string>
+    <string name="this_engineer_had_not_updated_their_latest_location_yet_you_can_still_proceed_but_the_engineer_is_not_guarantee_to_be_within_the_site_radius_at_the_moment">This engineer had not updated their latest marker yet. You can still proceed, but the engineer is not guarantee to be within the site radius at the moment</string>
     <string name="location_expired_check_if_gps_is_active_or_restart_app">Location expired, check if GPS is active or restart app</string>
     <string name="location_unavailable_check_permission">Location unavailable. Check permission!</string>
     <string name="reopen_ticket_successfully">Reopen Ticket Successfully!</string>

@@ -34,8 +34,8 @@ class MainApp : MultiDexApplication() {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val channel = NotificationChannel(
-                "location",
-                "Location",
+                "marker",
+                "MarkerTripleE",
                 NotificationManager.IMPORTANCE_LOW
             )
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)  as NotificationManager

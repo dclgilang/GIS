@@ -36,7 +36,7 @@ class MapsActivity : BaseActivity<MapsViewModel, ActivityMapsBinding>(), OnMapRe
         mapFragment.getMapAsync(this)
 
 
-        viewModel.responseListLocation.observe(lifecycleOwner) {
+        viewModel.responseListMarker.observe(lifecycleOwner) {
             if (it.status == 200) {
                 binding.viewLoading.isVisible = false
                 map.clear()
@@ -78,7 +78,7 @@ class MapsActivity : BaseActivity<MapsViewModel, ActivityMapsBinding>(), OnMapRe
 
     override fun onMarkerClick(marker: Marker): Boolean {
         lifecycleScope.launch {
-            val location = viewModel.responseListLocation.value?.data?.list?.ttMapAll?.first { it.tic_id == marker.tag }
+            val location = viewModel.responseListMarker.value?.data?.list?.ttMapAll?.first { it.tic_id == marker.tag }
             val cameraUpdate = CameraUpdateFactory.newLatLng(marker.position)
             map.animateCamera(cameraUpdate)
             delay(1000)

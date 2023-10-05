@@ -8,34 +8,33 @@ import id.co.dif.base_project.base.BaseBottomSheetDialog
 import id.co.dif.base_project.base.BaseFragment
 import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.BasicInfo
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.FragmentPopUpMeBinding
 import id.co.dif.base_project.presentation.activity.EngineerProfileActivity
 import id.co.dif.base_project.presentation.activity.MainActivity
 import id.co.dif.base_project.presentation.adapter.TitledViewPagerAdapter
 import id.co.dif.base_project.presentation.fragment.PopUpProfileItemFragment
-import id.co.dif.base_project.viewmodel.BasicInfoViewModel
 
 
 class PopUpProfileDialog(
-    private val technicians: List<Location>,
+    private val technicians: List<MarkerTripleE>,
     private val directionIsAvailable: Boolean = false,
-    val onGetDirectionClicked: (engineer: Location) -> Unit
+    val onGetDirectionClicked: (engineer: MarkerTripleE) -> Unit
 ) :
     BaseBottomSheetDialog<BaseViewModel, FragmentPopUpMeBinding, BasicInfo>() {
     override val layoutResId = R.layout.fragment_pop_up_me
 
     companion object {
         fun newInstance(
-            id: List<Location>,
+            id: List<MarkerTripleE>,
             directionIsAvailable: Boolean = false,
-            onGetDirectionClicked: (engineer: Location) -> Unit = {}
+            onGetDirectionClicked: (engineer: MarkerTripleE) -> Unit = {}
         ) = PopUpProfileDialog(id, directionIsAvailable, onGetDirectionClicked)
 
         fun newInstance(
-            id: Location,
+            id: MarkerTripleE,
             directionIsAvailable: Boolean = false,
-            onGetDirectionClicked: (engineer: Location) -> Unit = {}
+            onGetDirectionClicked: (engineer: MarkerTripleE) -> Unit = {}
         ) =
             PopUpProfileDialog(listOf(id), directionIsAvailable, onGetDirectionClicked)
     }

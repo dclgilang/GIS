@@ -1,5 +1,7 @@
 package id.co.dif.base_project.viewmodel
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.GoogleMap
@@ -8,7 +10,9 @@ import id.co.dif.base_project.base.BaseResponse
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.BasicInfo
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
+import id.co.dif.base_project.utils.closestDistanceLoc
+import id.co.dif.base_project.utils.log
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -18,15 +22,48 @@ import kotlinx.coroutines.launch
  *
  */
 class HomeViewModel : BaseViewModel() {
-    var responseSiteLocation = MutableLiveData<BaseResponseList<Location>>()
-    var responseListMapSiteLocation = MutableLiveData<BaseResponseList<Location>>()
-    var responseMapAlarm = MutableLiveData<BaseResponseList<Location>>()
+    var responseSiteMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
+    var responseListMapSiteMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
+    var responseMapAlarm = MutableLiveData<BaseResponseList<MarkerTripleE>>()
     var responseBasicInfoList = MutableLiveData<BaseResponse<BasicInfo>>()
     var mapLoading = MutableLiveData<Boolean>()
-    var markerItems = mutableListOf<Location>()
+    var markerItems = mutableListOf<MarkerTripleE>()
+    var currentSelectedLocation = MutableLiveData<MarkerTripleE>()
+    val visitedLocations = mutableListOf<MarkerTripleE>()
     var hasStarted = false
-    lateinit var clusterManager: ClusterManager<Location>
+    lateinit var clusterManager: ClusterManager<MarkerTripleE>
     lateinit var map: GoogleMap
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun nextMarker() {
+        val visitedLocId = visitedLocations.map { it.getId()}
+        visitedLocId.joinToString { it.toString() }.log("adsasdsad")
+        currentSelectedLocation.value?.let { loc ->
+            val markerLoc = markerItems.toMutableList()
+            val markerLocId = markerLoc.map { it.getId() }
+            val visitedLocId = visitedLocations.map { it.getId() }
+            markerLocId.joinToString { it.toString() }.log("adsasdfdfddsad")
+            visitedLocId.forEach {vId ->
+               markerLoc.removeIf { vId == it.getId() }
+            }
+
+            val closest = loc.closestDistanceLoc(markerLoc)
+            visitedLocations.size.log("asdsads")
+            visitedLocations.add(closest)
+            currentSelectedLocation.value = closest
+        } ?: run {
+            currentSelectedLocation.value = markerItems.firstOrNull()
+        }
+    }
+
+    fun previousMarker() {
+        currentSelectedLocation.value = if (visitedLocations.isEmpty()) {
+            markerItems.lastOrNull()
+        } else {
+            visitedLocations.removeLast()
+        }
+    }
+
 
     fun getListSite(search: String? = null) {
         viewModelJob = viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
@@ -41,7 +78,7 @@ class HomeViewModel : BaseViewModel() {
                 search = search,
             )
             println(response)
-            responseSiteLocation.postValue(response)
+            responseSiteMarker.postValue(response)
             dismissMapLoading()
         }
     }
@@ -59,7 +96,7 @@ class HomeViewModel : BaseViewModel() {
                 search = search,
             )
             println(response)
-            responseListMapSiteLocation.postValue(response)
+            responseListMapSiteMarker.postValue(response)
             dismissMapLoading()
         }
     }

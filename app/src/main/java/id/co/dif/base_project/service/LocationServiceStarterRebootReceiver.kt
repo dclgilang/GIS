@@ -13,7 +13,7 @@ import org.koin.core.component.inject
 class LocationServiceStarterRebootReceiver : BroadcastReceiver(), KoinComponent {
     val preferences: Preferences by inject()
     override fun onReceive(context: Context, intent: Intent?) {
-        Log.d("LocationUpdate", "startAlarmManager Location Service Reboot")
+        Log.d("LocationUpdate", "startAlarmManager MarkerTripleE Service Reboot")
         val type = when(preferences.nextLocationScheduleCommand.value){
             LocationScheduleCommand.START -> LocationService.ACTION_STOP
             LocationScheduleCommand.STOP -> LocationService.ACTION_START

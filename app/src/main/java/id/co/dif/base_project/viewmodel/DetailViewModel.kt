@@ -6,9 +6,8 @@ import id.co.dif.base_project.base.BaseResponse
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.EngineerWithinRadiusStatus
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.SiteData
-import id.co.dif.base_project.data.SiteDetails
 import id.co.dif.base_project.data.SparepartData
 import id.co.dif.base_project.utils.Resource
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -27,11 +26,11 @@ class DetailViewModel : BaseViewModel() {
     var responseaddsparepart = MutableLiveData<BaseResponse<SparepartData>>()
     var responseCheckSparepart  = MutableLiveData<BaseResponse<Any?>>()
     var responseGetSiteDetails = MutableLiveData<BaseResponse<SiteData>>()
-    var responseNearestTechnician = MutableLiveData<BaseResponseList<Location>>()
-    var responseSiteLocation = MutableLiveData<BaseResponseList<Location>>()
+    var responseNearestTechnician = MutableLiveData<BaseResponseList<MarkerTripleE>>()
+    var responseSiteMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
 
-    var selectedSite = MutableLiveData<Location?>()
-    var selectedEngineer = MutableLiveData<Location?>()
+    var selectedSite = MutableLiveData<MarkerTripleE?>()
+    var selectedEngineer = MutableLiveData<MarkerTripleE?>()
 
     var file: File? = null
     var articleName = ""
@@ -202,7 +201,7 @@ class DetailViewModel : BaseViewModel() {
                 search = search,
             )
             println(response)
-            responseSiteLocation.postValue(response)
+            responseSiteMarker.postValue(response)
         }
     }
 

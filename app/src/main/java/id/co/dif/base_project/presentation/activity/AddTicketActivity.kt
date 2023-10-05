@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
@@ -18,7 +17,7 @@ import id.co.dif.base_project.DialogUploadFile
 import id.co.dif.base_project.R
 import id.co.dif.base_project.allowedMimeType
 import id.co.dif.base_project.base.BaseActivity
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationStats
 import id.co.dif.base_project.data.TicketSeverity
 import id.co.dif.base_project.data.TicketStatus
@@ -32,10 +31,8 @@ import id.co.dif.base_project.utils.getFileFromUri
 import id.co.dif.base_project.utils.getFileNameFromUri
 import id.co.dif.base_project.utils.getImageFromUri
 import id.co.dif.base_project.utils.ifTrue
-import id.co.dif.base_project.utils.log
 import id.co.dif.base_project.utils.makeMultipartData
 import id.co.dif.base_project.utils.orDefault
-import id.co.dif.base_project.utils.zoom
 import org.koin.core.component.inject
 
 /***
@@ -71,7 +68,7 @@ class AddTicketActivity : BaseActivity<AddTicketViewModel, ActivityAddTicketBind
             binding.txtFieldEngineer.setText(it?.name)
         }
 
-        viewModel.responseSiteLocation.observe(lifecycleOwner) {
+        viewModel.responseSiteMarker.observe(lifecycleOwner) {
             if (it.status in StatusCode.SUCCESS) {
                 preferences.savedAllSite.value = it.data.list
                 setAutoCompleteSite(it.data.list)
@@ -261,14 +258,14 @@ class AddTicketActivity : BaseActivity<AddTicketViewModel, ActivityAddTicketBind
                     LocationStats.EXPIRED -> {
                         showToast(
                             this,
-                            "Data not submitted! location expired, check if GPS is active"
+                            "Data not submitted! marker expired, check if GPS is active"
                         )
                     }
 
                     LocationStats.UNAVAILABLE -> {
                         showToast(
                             this,
-                            "Data not submitted! location unavailable. Check permission!"
+                            "Data not submitted! marker unavailable. Check permission!"
                         )
                     }
 
@@ -345,11 +342,11 @@ class AddTicketActivity : BaseActivity<AddTicketViewModel, ActivityAddTicketBind
         }
     }
 
-    private fun setupAutoCompleteEngineers(locations: List<Location>) {
-        val adapter: ArrayAdapter<Location> = ArrayAdapter<Location>(
+    private fun setupAutoCompleteEngineers(markers: List<MarkerTripleE>) {
+        val adapter: ArrayAdapter<MarkerTripleE> = ArrayAdapter<MarkerTripleE>(
             this,
             R.layout.item_spinner_dropdown,
-            locations
+            markers
         )
 
         binding.txtFieldEngineer.setAdapter(adapter)
@@ -359,8 +356,8 @@ class AddTicketActivity : BaseActivity<AddTicketViewModel, ActivityAddTicketBind
         }
     }
 
-    private fun setAutoCompleteSite(list: List<Location>) {
-        val adapter: ArrayAdapter<Location> = ArrayAdapter<Location>(
+    private fun setAutoCompleteSite(list: List<MarkerTripleE>) {
+        val adapter: ArrayAdapter<MarkerTripleE> = ArrayAdapter<MarkerTripleE>(
             this,
             R.layout.item_spinner_dropdown,
             list
@@ -433,14 +430,14 @@ class AddTicketActivity : BaseActivity<AddTicketViewModel, ActivityAddTicketBind
 
                 SELECT_ENGINEER_REQUEST_CODE -> {
                     data?.let { intent ->
-                        val selectedEngineer = intent.getSerializableExtra("selected_engineer") as Location?
+                        val selectedEngineer = intent.getSerializableExtra("selected_engineer") as MarkerTripleE?
                         viewModel.selectedEngineer.value = selectedEngineer
                     }
                 }
 
                 SELECT_SITE_REQUEST_CODE -> {
                     data?.let { intent ->
-                        val selectedSite = intent.getSerializableExtra("selected_site") as Location?
+                        val selectedSite = intent.getSerializableExtra("selected_site") as MarkerTripleE?
                         viewModel.selectedSite.value = selectedSite
                     }
                 }

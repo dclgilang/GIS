@@ -2,13 +2,12 @@ package id.co.dif.base_project.presentation.dialog
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.ViewDataBinding
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseBottomSheetDialog
 import id.co.dif.base_project.base.BaseFragment
 import id.co.dif.base_project.base.BaseViewModel
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.DialogSelectEngineerBinding
 import id.co.dif.base_project.presentation.adapter.TitledViewPagerAdapter
 import id.co.dif.base_project.presentation.fragment.SelectEngineerItemFragment
@@ -21,13 +20,13 @@ import id.co.dif.base_project.utils.log
  */
 
 
-class SelectEngineerDialog(private val technicians: List<Location>, val listener: Listener, val pingLocation: (Location)->Unit) :
+class SelectEngineerDialog(private val technicians: List<MarkerTripleE>, val listener: Listener, val pingLocation: (MarkerTripleE)->Unit) :
     BaseBottomSheetDialog<BaseViewModel, DialogSelectEngineerBinding, Any?>() {
 
     override val layoutResId = R.layout.dialog_select_engineer
 
     companion object {
-        fun newInstance(technicians: List<Location>, listener: Listener, pingLocation: (Location)->Unit) =
+        fun newInstance(technicians: List<MarkerTripleE>, listener: Listener, pingLocation: (MarkerTripleE)->Unit) =
             SelectEngineerDialog(technicians, listener, pingLocation)
     }
 
@@ -65,7 +64,7 @@ class SelectEngineerDialog(private val technicians: List<Location>, val listener
     }
 
     interface Listener {
-        fun onSelectedEngineer(location: Location?)
-        fun pingLocation(engineer : Location)
+        fun onSelectedEngineer(marker: MarkerTripleE?)
+        fun pingLocation(engineer : MarkerTripleE)
     }
 }

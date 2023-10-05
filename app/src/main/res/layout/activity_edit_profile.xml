@@ -314,10 +314,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="@string/location" />
+                        android:text="@string/marker" />
 
                     <EditText
-                        android:id="@+id/location"
+                        android:id="@+id/marker"
                         style="@style/Form.EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

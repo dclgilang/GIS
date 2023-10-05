@@ -63,7 +63,7 @@ class OverviewFragment : BaseFragment<OverviewViewModel, OverviewBinding>() {
                 binding.position.text = session?.emp_position.orDefault()
                 binding.jointeam.text =
                     getString(R.string.since, session?.join_team.orDefault())
-                binding.location.text = it.data.address.orDefault()
+                binding.marker.text = it.data.address.orDefault()
                 binding.phone.text = it.data.phone.orDefault()
                 binding.email.text = it.data.email.orDefault()
                 binding.birthdate.text = it.data.birthday.orDefault()

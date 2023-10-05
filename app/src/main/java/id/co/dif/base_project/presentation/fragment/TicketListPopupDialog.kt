@@ -11,7 +11,7 @@ import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseBottomSheetDialog
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.data.SiteDetails
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.TroubleTicket
 import id.co.dif.base_project.databinding.DialogTicketListBinding
 import id.co.dif.base_project.presentation.adapter.TroubleTicketAdapter
@@ -21,7 +21,7 @@ import id.co.dif.base_project.utils.StatusCode
 import id.co.dif.base_project.utils.toDp
 import id.co.dif.base_project.viewmodel.TicketListPopupDialogViewModel
 
-class TicketListPopupDialog(val location: Location?) :
+class TicketListPopupDialog(val marker: MarkerTripleE?) :
     BaseBottomSheetDialog<TicketListPopupDialogViewModel, DialogTicketListBinding, SiteDetails>() {
 
     override val layoutResId = R.layout.dialog_ticket_list
@@ -34,12 +34,12 @@ class TicketListPopupDialog(val location: Location?) :
     private var paginationListener: PaginationScrollListener? = null
 
     companion object {
-        fun newInstance(location: Location?) = TicketListPopupDialog(location)
+        fun newInstance(marker: MarkerTripleE?) = TicketListPopupDialog(marker)
     }
 
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
-        binding.tvSiteName.text = location?.site_name
-        binding.tvDescriptionSiteNameValue.text = location?.site_name
+        binding.tvSiteName.text = marker?.site_name
+        binding.tvDescriptionSiteNameValue.text = marker?.site_name
 
         troubleTicketAdapter = TroubleTicketAdapter()
         binding.rvTickets.adapter = troubleTicketAdapter
@@ -69,7 +69,7 @@ class TicketListPopupDialog(val location: Location?) :
             populateTroubleTicketList(it)
         }
         setupTroubleTicketList()
-        Log.d("TAG", "onViewBindingCreated: ${location!!.site_id}")
+        Log.d("TAG", "onViewBindingCreated: ${marker!!.site_id}")
 
     }
 
@@ -138,11 +138,11 @@ class TicketListPopupDialog(val location: Location?) :
     }
 
     fun loadNextPage() {
-        viewModel.getTicketsBySiteById(siteId = location?.site_id!!, page = currentPage)
+        viewModel.getTicketsBySiteById(siteId = marker?.site_id!!, page = currentPage)
     }
 
     private fun loadFirstPage() {
         viewModel.cancelJob()
-        viewModel.getTicketsBySiteById(siteId = location?.site_id!!, page = pageStart)
+        viewModel.getTicketsBySiteById(siteId = marker?.site_id!!, page = pageStart)
     }
 }

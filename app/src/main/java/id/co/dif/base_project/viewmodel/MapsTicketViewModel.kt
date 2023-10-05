@@ -9,13 +9,13 @@ import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.BasicInfo
 import id.co.dif.base_project.data.DirectionsResponse
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 
 class MapsTicketViewModel : BaseViewModel() {
-    var responseNearestTechnician = MutableLiveData<BaseResponseList<Location>>()
+    var responseNearestTechnician = MutableLiveData<BaseResponseList<MarkerTripleE>>()
     var responseDetailedProfile = MutableLiveData<BaseResponse<BasicInfo>>()
 
     fun getNearestTechnician(idSite: Int? = 0) {

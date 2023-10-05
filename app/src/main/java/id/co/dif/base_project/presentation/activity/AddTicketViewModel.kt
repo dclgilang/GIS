@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import id.co.dif.base_project.base.BaseResponse
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.SiteData
 import id.co.dif.base_project.data.TroubleTicket
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -18,10 +18,10 @@ class AddTicketViewModel : BaseViewModel() {
     var responseaddticket = MutableLiveData<BaseResponse<TroubleTicket>>()
     var responseGetSiteDetails = MutableLiveData<BaseResponse<SiteData>>()
     var responseeuploadfile = MutableLiveData<BaseResponse<Any>>()
-    var responseNearestTechnician = MutableLiveData<BaseResponseList<Location>>()
-    var selectedSite = MutableLiveData<Location?>()
-    var selectedEngineer = MutableLiveData<Location?>()
-    var responseSiteLocation = MutableLiveData<BaseResponseList<Location>>()
+    var responseNearestTechnician = MutableLiveData<BaseResponseList<MarkerTripleE>>()
+    var selectedSite = MutableLiveData<MarkerTripleE?>()
+    var selectedEngineer = MutableLiveData<MarkerTripleE?>()
+    var responseSiteMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
     var file: File? = null
     var sparepart: String? = null
 
@@ -85,7 +85,7 @@ class AddTicketViewModel : BaseViewModel() {
                 search = search,
             )
             println(response)
-            responseSiteLocation.postValue(response)
+            responseSiteMarker.postValue(response)
         }
     }
 

@@ -14,11 +14,11 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.clustering.ClusterManager
 import id.co.dif.base_project.R
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 
 fun GoogleMap.zoom(
-    clusterManager: ClusterManager<Location>,
-    list: List<Location>,
+    clusterManager: ClusterManager<MarkerTripleE>,
+    list: List<MarkerTripleE>,
     onIdle: () -> Unit = {}
 ) {
     list.ifEmpty {
@@ -52,15 +52,27 @@ fun GoogleMap.zoom(
 }
 
 fun GoogleMap.zoom(
-    clusterManager: ClusterManager<Location>,
-    loc: Location,
+    clusterManager: ClusterManager<MarkerTripleE>,
+    loc: MarkerTripleE,
     onIdle: () -> Unit = {}
 ) {
     zoom(clusterManager, listOf(loc), onIdle)
 }
 
+fun GoogleMap.zoom(
+    clusterManager: ClusterManager<MarkerTripleE>,
+    latLng: android.location.Location,
+    onIdle: () -> Unit = {}
+) {
+    val position = MarkerTripleE(
+        latitude = latLng.latitude.toString(),
+        longtitude = latLng.longitude.toString()
+    )
+    zoom(clusterManager, listOf(position), onIdle)
+}
+
 fun GoogleMap.animateToMeters(
-    clusterManager: ClusterManager<Location>,
+    clusterManager: ClusterManager<MarkerTripleE>,
     meters: Float,
     ll: LatLng,
     onIdle: () -> Unit = {}

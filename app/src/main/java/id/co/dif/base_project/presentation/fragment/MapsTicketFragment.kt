@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.core.view.isVisible
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -16,7 +15,7 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseFragment
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import id.co.dif.base_project.data.TicketDetails
 import id.co.dif.base_project.databinding.FragmentMapsTicketBinding
@@ -24,21 +23,20 @@ import id.co.dif.base_project.presentation.dialog.PopUpProfileDialog
 import id.co.dif.base_project.utils.TripleEMapClusterRenderer
 import id.co.dif.base_project.utils.StatusCode
 import id.co.dif.base_project.utils.colorRes
-import id.co.dif.base_project.utils.str
 import id.co.dif.base_project.utils.toDp
 import id.co.dif.base_project.utils.zoom
 import id.co.dif.base_project.utils.*
 import id.co.dif.base_project.viewmodel.MapsTicketViewModel
 
 class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketBinding>(),
-    OnMapReadyCallback, ClusterManager.OnClusterClickListener<Location>,
-    ClusterManager.OnClusterItemClickListener<Location> {
+    OnMapReadyCallback, ClusterManager.OnClusterClickListener<MarkerTripleE>,
+    ClusterManager.OnClusterItemClickListener<MarkerTripleE> {
     override val layoutResId = R.layout.fragment_maps_ticket
-    private lateinit var clusterManager: ClusterManager<Location>
+    private lateinit var clusterManager: ClusterManager<MarkerTripleE>
     private lateinit var map: GoogleMap
     private var sourceLoc: LatLng? = null
     private var destinationLoc: LatLng? = null
-    var locations = listOf<Location>()
+    var markers = listOf<MarkerTripleE>()
     var zoomMap: () -> Unit = {}
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -47,7 +45,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
             map.clear()
             binding.layoutAction.isVisible = false
             setupClusterization()
-            locations.forEach {
+            markers.forEach {
                 clusterManager.addValidItem(it)
             }
             zoomMap()
@@ -81,13 +79,13 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
                         3 -> viewModel.getDetailProfile(data.tic_person_in_charge_id?.toInt())
                         else -> Unit
                     }
-                    locations = listOfNotNull(site, fieldEngineer)
-                    locations.forEach { loc ->
+                    markers = listOfNotNull(site, fieldEngineer)
+                    markers.forEach { loc ->
                         clusterManager.addValidItem(loc)
                     }
                     map.setOnMapLoadedCallback {
                         zoomMap = {
-                            map.zoom(clusterManager, locations)
+                            map.zoom(clusterManager, markers)
                         }
                         zoomMap()
                     }
@@ -99,7 +97,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
 
         viewModel.responseDetailedProfile.observe(lifecycleOwner) {
             if (it.status in StatusCode.SUCCESS) {
-                val location = Location(
+                val marker = MarkerTripleE(
                     id = it.data.id,
                     latitude = it.data.latitude.orDefault("0"),
                     longtitude = it.data.longtitude.orDefault("0"),
@@ -107,18 +105,18 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
                     name = it.data.fullname,
                     type = "technician"
                 )
-                locations = locations + location
-                var technicianOnly = locations.filter { it.type == LocationType.Technician.name }
+                markers = markers + marker
+                var technicianOnly = markers.filter { it.type == LocationType.Technician.name }
                 technicianOnly = technicianOnly.distinctBy { it.id }
-                val site = locations.filter { it.type == LocationType.Site.name }
-                locations = technicianOnly + site
+                val site = markers.filter { it.type == LocationType.Site.name }
+                markers = technicianOnly + site
                 clusterManager.clearItems()
-                locations.forEach {
+                markers.forEach {
                     clusterManager.addValidItem(it)
                 }
                 clusterManager.cluster()
 
-                map.zoom(clusterManager, locations)
+                map.zoom(clusterManager, markers)
 
             }
         }
@@ -127,11 +125,11 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
             if (sourceLoc != null && destinationLoc != null) {
                 try {
                     val src =
-                        Location(
+                        MarkerTripleE(
                             latitude = sourceLoc!!.latitude.toString(),
                             longtitude = sourceLoc!!.longitude.toString()
                         )
-                    val dst = Location(
+                    val dst = MarkerTripleE(
                         latitude = destinationLoc!!.latitude.toString(),
                         longtitude = destinationLoc!!.longitude.toString()
                     )
@@ -153,9 +151,9 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
                                 )
                         )
                     }
-                    val locations = listOf(src, dst) + path.flatten()
-                        .map { Location(latitude = it.latitude.toString(), longtitude = it.longitude.toString()) }
-                    map.zoom(clusterManager, locations) {
+                    val markers = listOf(src, dst) + path.flatten()
+                        .map { MarkerTripleE(latitude = it.latitude.toString(), longtitude = it.longitude.toString()) }
+                    map.zoom(clusterManager, markers) {
                     }
                 } catch (e: Exception) {
                     binding.layoutAction.isVisible = false
@@ -178,23 +176,23 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
 
     fun loadMarkerOffline() {
         val data = preferences.ticketDetails.value
-        val site = Location(
+        val site = MarkerTripleE(
             type = "TT Site All",
             name = data?.site_info?.siteName,
             site_addre_street = data?.site_info?.siteAddressStreet,
             latitude = data?.site_info?.technologyLatitude.orDefault("0"),
             longtitude = data?.site_info?.technologyLongitude.orDefault("0")
         )
-        val technician = Location(
+        val technician = MarkerTripleE(
             type = "technician",
             name = preferences.myDetailProfile.value?.fullname,
             image = preferences.myDetailProfile.value?.photo_profile,
             latitude = preferences.myDetailProfile.value?.latitude.orDefault("0"),
             longtitude = preferences.myDetailProfile.value?.longtitude.orDefault("0")
         )
-        locations = listOfNotNull(site, technician)
+        markers = listOfNotNull(site, technician)
         redrawMaps()
-        map.zoom(clusterManager, locations)
+        map.zoom(clusterManager, markers)
     }
 
     private fun openMaps(src: LatLng, dst: LatLng) {
@@ -208,7 +206,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
         map.clear()
         setupClusterization()
         clusterManager.clearItems()
-        locations.forEach { loc ->
+        markers.forEach { loc ->
             clusterManager.addValidItem(loc)
         }
         clusterManager.cluster()
@@ -247,7 +245,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
         setupLocations(ticketDetails)
     }
 
-    override fun onClusterClick(cluster: Cluster<Location>): Boolean {
+    override fun onClusterClick(cluster: Cluster<MarkerTripleE>): Boolean {
         map.zoom(clusterManager, cluster.items.toList()) {
             if (map.cameraPosition.zoom < map.maxZoomLevel) {
                 return@zoom
@@ -262,7 +260,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
         return true
     }
 
-    override fun onClusterItemClick(item: Location): Boolean {
+    override fun onClusterItemClick(item: MarkerTripleE): Boolean {
         map.zoom(clusterManager, item) {
             when (LocationType.fromString(item.type)) {
                 LocationType.Site -> {
@@ -290,7 +288,7 @@ class MapsTicketFragment : BaseFragment<MapsTicketViewModel, FragmentMapsTicketB
         return false
     }
 
-    private fun getDirection(direction: Location) {
+    private fun getDirection(direction: MarkerTripleE) {
         val site = preferences.ticketDetails.value?.site_info
         val sitePosition = site?.toSiteLocation()?.position
 

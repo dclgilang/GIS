@@ -96,7 +96,7 @@ class LocationService : Service(), KoinComponent {
     }
 
     private fun start() {
-        "location start".log("location update")
+        "marker start".log("marker update")
         val myProfile = preferences.myDetailProfile.value
         val rootRef = database.getReference("/")
         Timber.tag(TAG).d("onCreate: service started ")
@@ -116,7 +116,7 @@ class LocationService : Service(), KoinComponent {
                 e.printStackTrace()
             }
             .onEach { location ->
-                location.log("location update")
+                location.log("marker update")
                 val notification = buildForegroundNotification()
                 notificationManager.notify(1, notification)
                 saveLastLocation(location)
@@ -129,7 +129,7 @@ class LocationService : Service(), KoinComponent {
 
 
     private fun buildForegroundNotification(): Notification {
-        return NotificationCompat.Builder(this, "location")
+        return NotificationCompat.Builder(this, "marker")
             .setContentTitle(getString(R.string.triple_e_is_running))
             .setContentText(getString(R.string.triple_e_is_running_in_the_background_in_working_hours))
             .setSmallIcon(R.drawable.logo_triple_e)

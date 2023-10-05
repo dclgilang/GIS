@@ -5,7 +5,7 @@ import id.co.dif.base_project.data.Education
 import id.co.dif.base_project.data.Employee
 import id.co.dif.base_project.data.LastLocation
 import id.co.dif.base_project.data.TicketDetails
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationScheduleCommand
 import id.co.dif.base_project.data.LoginData
 import id.co.dif.base_project.data.Note
@@ -58,7 +58,7 @@ class Preferences(val method: PersistenceOperator) {
         )
     }
     val selectedTechnician by lazy {
-        preferenceFactory.createPreference<Location>(
+        preferenceFactory.createPreference<MarkerTripleE>(
             "selected_technician",
             method
         )
@@ -95,7 +95,7 @@ class Preferences(val method: PersistenceOperator) {
         )
     }
     val selectedSite by lazy {
-        preferenceFactory.createPreference<Location>(
+        preferenceFactory.createPreference<MarkerTripleE>(
             "selected_site",
             method
         )
@@ -152,19 +152,19 @@ class Preferences(val method: PersistenceOperator) {
     }
     val siteData by lazy { preferenceFactory.createPreference<SiteData>("site_data", method) }
     val lastMapAlarm by lazy {
-        preferenceFactory.createPreference<List<Location>>(
+        preferenceFactory.createPreference<List<MarkerTripleE>>(
             "last_map_alarm",
             method
         )
     }
     val savedEngineers by lazy {
-        preferenceFactory.createPreference<List<Location>>(
+        preferenceFactory.createPreference<List<MarkerTripleE>>(
             "saved_engineers",
             method
         )
     }
     val savedAllSite by lazy {
-        preferenceFactory.createPreference<List<Location>>(
+        preferenceFactory.createPreference<List<MarkerTripleE>>(
             "saved_all_site",
             method
         )

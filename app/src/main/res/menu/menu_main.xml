@@ -7,14 +7,18 @@
     <item
         android:id="@+id/previous"
         android:icon="@drawable/icon_btn_previous"
-        android:title="Previous" />
+        android:title="Previous"
+        android:enabled="false"
+        android:visible="false"/>
     <item
         android:id="@+id/menu_map" android:title=""
         android:enabled="false"/>
     <item
         android:id="@+id/next"
         android:icon="@drawable/icon_btn_next"
-        android:title="Next" />
+        android:title="Next"
+        android:enabled="false"
+        android:visible="false"/>
     <item
         android:id="@+id/menu_me"
         android:icon="@drawable/ic_menu_me"

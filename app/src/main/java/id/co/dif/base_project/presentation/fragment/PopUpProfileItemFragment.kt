@@ -1,33 +1,30 @@
 package id.co.dif.base_project.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseFragment
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.FragmentPopupUpMeItemBinding
 import id.co.dif.base_project.utils.StatusCode
 import id.co.dif.base_project.utils.base64ImageToBitmap
 import id.co.dif.base_project.utils.orDefault
-import id.co.dif.base_project.utils.loadImage
-import id.co.dif.base_project.utils.shimmerDrawable
 import id.co.dif.base_project.utils.str
 import id.co.dif.base_project.viewmodel.BasicInfoViewModel
 
 
-class PopUpProfileItemFragment(private val engineer: Location) :
+class PopUpProfileItemFragment(private val engineer: MarkerTripleE) :
     BaseFragment<BasicInfoViewModel, FragmentPopupUpMeItemBinding>() {
     override val layoutResId = R.layout.fragment_popup_up_me_item
 
     var directionIsAvailable = false
-    var onViewProfileClicked: (engineer: Location) -> Unit = { _ -> }
-    var onGetDirectionClicked: (engineer: Location) -> Unit = { _ -> }
+    var onViewProfileClicked: (engineer: MarkerTripleE) -> Unit = { _ -> }
+    var onGetDirectionClicked: (engineer: MarkerTripleE) -> Unit = { _ -> }
     var shouldShowArrow = false
 
     companion object {
-        fun newInstance(engineer: Location) = PopUpProfileItemFragment(engineer)
+        fun newInstance(engineer: MarkerTripleE) = PopUpProfileItemFragment(engineer)
     }
 
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {

@@ -6,33 +6,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
-import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseActivity
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import id.co.dif.base_project.databinding.ActivitySelectSiteBinding
 import id.co.dif.base_project.presentation.dialog.SelectEngineerDialog
 import id.co.dif.base_project.presentation.fragment.MarkerPopupDialog
 import id.co.dif.base_project.utils.*
 import id.co.dif.base_project.viewmodel.SelectSiteViewModel
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 /***
  * Created by kikiprayudi
@@ -41,10 +29,10 @@ import java.util.concurrent.TimeUnit
  */
 class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectSiteBinding>(),
     OnMapReadyCallback, SelectEngineerDialog.Listener,
-    ClusterManager.OnClusterItemClickListener<Location>,
-    ClusterManager.OnClusterClickListener<Location> {
+    ClusterManager.OnClusterItemClickListener<MarkerTripleE>,
+    ClusterManager.OnClusterClickListener<MarkerTripleE> {
     override val layoutResId = R.layout.activity_select_site
-    private var clusterManager: ClusterManager<Location>? = null
+    private var clusterManager: ClusterManager<MarkerTripleE>? = null
     private var countDownTimer: CountDownTimer? = null
     private lateinit var map: GoogleMap
 
@@ -92,7 +80,7 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
                             if (viewModel.pingEnginer?.locationIsUpdated != true) {
                                 showAlert(
                                     context = this,
-                                    message = "Engineer location is not updated",
+                                    message = "Engineer marker is not updated",
                                     buttonPrimaryText = "Dismiss",
                                     onButtonPrimaryClicked = {},
                                 )
@@ -131,7 +119,7 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
         map = googleMap
         map.setPadding(0, 0, 0, 20.toDp)
         map.customMaps(this)
-        val selectedSite = intent.getSerializableExtra("selected_site") as Location?
+        val selectedSite = intent.getSerializableExtra("selected_site") as MarkerTripleE?
         selectedSite?.site_id.log("selected_site_for_engineer")
         val siteId = selectedSite?.site_id
         viewModel.selectedSite = selectedSite
@@ -142,18 +130,18 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
         clusterizeMap()
     }
 
-    override fun onSelectedEngineer(location: Location?) {
-        location.log("enginerelsdjflsdf")
-        location?.image = null
+    override fun onSelectedEngineer(marker: MarkerTripleE?) {
+        marker.log("enginerelsdjflsdf")
+        marker?.image = null
         clusterManager?.clearItems()
-        viewModel.lastLocationZoomed = location
+        viewModel.lastMarkerZoomed = marker
         val intent = Intent()
-        intent.putExtra("selected_engineer", location)
+        intent.putExtra("selected_engineer", marker)
         setResult(RESULT_OK, intent)
         finish()
     }
 
-    override fun pingLocation(engineer: Location) {
+    override fun pingLocation(engineer: MarkerTripleE) {
         viewModel.pingEnginer = engineer
         viewModel.pingEngineerToSendTheirLocation(engineerId = engineer.id)
     }
@@ -175,14 +163,14 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
         }
     }
 
-    override fun onClusterItemClick(location: Location): Boolean {
-        when (LocationType.fromString(location.type)) {
+    override fun onClusterItemClick(marker: MarkerTripleE): Boolean {
+        when (LocationType.fromString(marker.type)) {
             LocationType.Site -> {
 
             }
 
             LocationType.Technician -> {
-                SelectEngineerDialog.newInstance(listOf(location), this) {
+                SelectEngineerDialog.newInstance(listOf(marker), this) {
                     viewModel.pingEngineerToSendTheirLocation(engineerId = it.id)
                 }.show(
                     supportFragmentManager,
@@ -191,7 +179,7 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
             }
 
             LocationType.TtMapAll -> {
-                MarkerPopupDialog.newInstance(location = location).show(
+                MarkerPopupDialog.newInstance(marker = marker).show(
                     supportFragmentManager,
                     MarkerPopupDialog::class.java.name
                 )
@@ -202,7 +190,7 @@ class SelectEngineerActivity : BaseActivity<SelectSiteViewModel, ActivitySelectS
         return false
     }
 
-    override fun onClusterClick(cluster: Cluster<Location>): Boolean {
+    override fun onClusterClick(cluster: Cluster<MarkerTripleE>): Boolean {
         clusterManager?.let { clusterManager ->
             map.zoom(clusterManager, cluster.items.toList()) {
                 binding.etSearch.clearFocus()

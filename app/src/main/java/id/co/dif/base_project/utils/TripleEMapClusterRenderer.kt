@@ -1,29 +1,26 @@
 package id.co.dif.base_project.utils
 
-import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.webkit.URLUtil
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import id.co.dif.base_project.R
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import org.koin.core.component.KoinComponent
 
 class TripleEMapClusterRenderer(
     val context: Context,
     val map: GoogleMap,
-    val clusterManager: ClusterManager<Location>,
-) : DefaultClusterRenderer<Location>(context, map, clusterManager), KoinComponent {
-    val items: MutableList<Location> = mutableListOf()
+    val clusterManager: ClusterManager<MarkerTripleE>,
+) : DefaultClusterRenderer<MarkerTripleE>(context, map, clusterManager), KoinComponent {
+    val items: MutableList<MarkerTripleE> = mutableListOf()
     private val icBakti: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_bakti)
     private val brokenImage: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.baseline_broken_image_24)
     private val alarm = context.toBitmapDescriptor(R.drawable.ic_alarm_high_quality)
@@ -39,14 +36,14 @@ class TripleEMapClusterRenderer(
     )
 
     override fun onBeforeClusterItemRendered(
-        item: Location,
+        item: MarkerTripleE,
         markerOptions: MarkerOptions,
     ) {
         loadMarker(markerOptions, item)
     }
 
     override fun onBeforeClusterRendered(
-        cluster: Cluster<Location>,
+        cluster: Cluster<MarkerTripleE>,
         markerOptions: MarkerOptions,
     ) {
         val bitmap = BitmapDescriptorFactory.fromBitmap(context.makeClusterMarker(cluster.size))
@@ -57,11 +54,11 @@ class TripleEMapClusterRenderer(
         return Color.parseColor("#0756AB")
     }
 
-    override fun shouldRenderAsCluster(cluster: Cluster<Location>): Boolean {
+    override fun shouldRenderAsCluster(cluster: Cluster<MarkerTripleE>): Boolean {
         return cluster.size > 1
     }
 
-    private fun loadMarker(markerOptions: MarkerOptions, item: Location) {
+    private fun loadMarker(markerOptions: MarkerOptions, item: MarkerTripleE) {
         items.add(item)
         items.distinct()
         val bitmapDescriptor = when (LocationType.fromString(item.type)) {

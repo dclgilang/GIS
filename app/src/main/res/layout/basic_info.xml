@@ -78,11 +78,11 @@
                 style="@style/text_regular"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
-                android:text="@string/location"
+                android:text="@string/marker"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/marker"
                 style="@style/text_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

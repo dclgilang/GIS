@@ -27,7 +27,7 @@ class DefaultLocationClient(
     override fun getLocationUpdates(interval: Long): Flow<Location> {
         return callbackFlow {
             if (!context.hasLocationPermission()) {
-                throw LocationClient.LocationException("Missing location permission")
+                throw LocationClient.LocationException("Missing marker permission")
             }
             val locationManager =
                 context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -64,7 +64,7 @@ class DefaultLocationClient(
     override fun getCurrentLocation(onLocationUpdate: (location: Location?) -> Unit) {
         if (!context.hasLocationPermission()) {
             onLocationUpdate(null)
-//            throw LocationClient.LocationException("Missing location permission")
+//            throw LocationClient.LocationException("Missing marker permission")
         }
         val locationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager

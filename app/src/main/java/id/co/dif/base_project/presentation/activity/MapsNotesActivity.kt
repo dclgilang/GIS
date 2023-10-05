@@ -12,7 +12,7 @@ import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import id.co.dif.base_project.R
 import id.co.dif.base_project.base.BaseActivity
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import id.co.dif.base_project.data.Note
 import id.co.dif.base_project.databinding.ActivityMapsNotesBinding
@@ -32,13 +32,13 @@ import id.co.dif.base_project.viewmodel.MapsViewModel
 import kotlinx.coroutines.launch
 
 class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(),
-    OnMapReadyCallback, ClusterManager.OnClusterClickListener<Location>,
-    ClusterManager.OnClusterItemClickListener<Location> {
-    private var clusterManager: ClusterManager<Location>? = null
+    OnMapReadyCallback, ClusterManager.OnClusterClickListener<MarkerTripleE>,
+    ClusterManager.OnClusterItemClickListener<MarkerTripleE> {
+    private var clusterManager: ClusterManager<MarkerTripleE>? = null
     override val layoutResId = R.layout.activity_maps_notes
     private lateinit var map: GoogleMap
     lateinit var notes: List<Note>
-    var locations: List<Location> = mutableListOf()
+    var markers: List<MarkerTripleE> = mutableListOf()
     var zoomMap: () -> Unit = {}
 
 
@@ -52,7 +52,7 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
         binding.imgRefresh.setOnClickListener {
             map.clear()
             setupClusterization()
-            locations.forEach {
+            markers.forEach {
                 clusterManager?.addValidItem(it)
             }
             zoomMap()
@@ -73,7 +73,7 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
             var siteLocation = preferences.selectedSite.value
 
             if (siteLocation == null) {
-                siteLocation = Location(
+                siteLocation = MarkerTripleE(
                     latitude = siteLatitude.orDefault("0"),
                     longtitude = siteLongitude.orDefault("0"),
                     type = "site",
@@ -86,7 +86,7 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
 
             Log.d(TAG, "setupLocations loc: $siteLatitude $siteLongitude")
             // TODO: modify this hardcode
-            val notesLocations = notesWithImage.mapNotNull {
+            val notesMarkers = notesWithImage.mapNotNull {
                 try {
                     val urlType = urlTypeOf(it.file)
                     val image = if (urlType == "image") {
@@ -94,8 +94,8 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
                     } else {
                         null
                     }
-                    it.log("maps location")
-                    Location(
+                    it.log("maps marker")
+                    MarkerTripleE(
                         id = it.id,
                         latitude = it.latitude.orDefault("0"),
                         longtitude = it.longitude.orDefault("0"),
@@ -107,8 +107,8 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
                 }
             }
             map.clear()
-            locations = notesLocations + siteLocation
-            val highlightedNoteLocation = notesLocations.find { it.id == highlightedNote.value?.id }
+            markers = notesMarkers + siteLocation
+            val highlightedNoteLocation = notesMarkers.find { it.id == highlightedNote.value?.id }
             highlightedNoteLocation?.let {
                 zoomMap = {
                     val distance = it.position.distanceTo(siteLocation.position)
@@ -116,7 +116,7 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
                 }
                 zoomMap()
             }
-            locations.forEach {
+            markers.forEach {
                 clusterManager!!.addItem(it)
             }
         }
@@ -152,13 +152,13 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
         map.uiSettings.isZoomControlsEnabled = true
         map.uiSettings.isZoomGesturesEnabled = true
         map.uiSettings.isMapToolbarEnabled = false
-        val loc = Location(longtitude = "118.0148634", latitude = "-2.548926")
+        val loc = MarkerTripleE(longtitude = "118.0148634", latitude = "-2.548926")
         map.zoom(clusterManager!!, loc) {
             setupLocations()
         }
     }
 
-    override fun onClusterClick(cluster: Cluster<Location>): Boolean {
+    override fun onClusterClick(cluster: Cluster<MarkerTripleE>): Boolean {
         map.zoom(clusterManager!!, cluster.items.toList()) {
             if (map.cameraPosition.zoom >= map.maxZoomLevel) {
                 val onlyNotes = cluster.items.filter { it.type == LocationType.Note.name }
@@ -173,7 +173,7 @@ class MapsNotesActivity : BaseActivity<MapsViewModel, ActivityMapsNotesBinding>(
         return true
     }
 
-    override fun onClusterItemClick(item: Location): Boolean {
+    override fun onClusterItemClick(item: MarkerTripleE): Boolean {
         map.zoom(clusterManager!!, item) {
             lifecycleOwner.lifecycleScope.launch {
                 if (item.type == LocationType.Note.name) {

@@ -5,16 +5,15 @@ import androidx.lifecycle.viewModelScope
 import id.co.dif.base_project.base.BaseResponse
 import id.co.dif.base_project.base.BaseResponseList
 import id.co.dif.base_project.base.BaseViewModel
-import id.co.dif.base_project.data.Location
+import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.NotificationUnreadStatus
-import id.co.dif.base_project.utils.isDeviceOnline
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class MainViewModel : BaseViewModel() {
     var periodicOfflineConnectivityIsRunning: Boolean = false
     var responseNotificationUnreadStatus = MutableLiveData<BaseResponse<NotificationUnreadStatus>>()
-    var responseSiteLocation = MutableLiveData<BaseResponseList<Location>>()
+    var responseSiteMarker = MutableLiveData<BaseResponseList<MarkerTripleE>>()
     var mapLoading = MutableLiveData<Boolean>()
 
     fun getNotificationUnreadStatus() {
@@ -42,7 +41,7 @@ class MainViewModel : BaseViewModel() {
                 search = search,
             )
             println(response)
-            responseSiteLocation.postValue(response)
+            responseSiteMarker.postValue(response)
             dismissMapLoading()
         }
     }

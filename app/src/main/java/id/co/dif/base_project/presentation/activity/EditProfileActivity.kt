@@ -83,7 +83,7 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel, ActivityEditProfi
         }
         binding.phonenumber.setText(info?.phone.orDefault())
         binding.emailarlternative.setText(info?.alt_email.orDefault())
-        binding.location.setText(info?.location.orDefault())
+        binding.marker.setText(info?.location.orDefault())
         binding.edtLatitude.setText(info?.latitude.orDefault())
         binding.edtLongtitude.setText(info?.longtitude)
 
@@ -339,7 +339,7 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel, ActivityEditProfi
                 "emp_address" to binding.address.text.toString(),
                 "emp_mobile" to binding.phonenumber.text.toString(),
                 "emp_alt_email" to binding.emailarlternative.text.toString(),
-                "emp_location" to binding.location.text.toString(),
+                "emp_location" to binding.marker.text.toString(),
                 "emp_latitude" to binding.edtLatitude.text.toString(),
                 "emp_longtitude" to binding.edtLongtitude.text.toString(),
                 "emp_nik" to binding.nik.text.toString(),
