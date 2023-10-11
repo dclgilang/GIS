@@ -11,6 +11,7 @@ import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.SiteDetails
 import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.databinding.DialogMarkerPopUpBinding
+import id.co.dif.base_project.presentation.activity.HomeDetailInfoActivity
 import id.co.dif.base_project.presentation.activity.MapSiteActivity
 import id.co.dif.base_project.utils.loadImage
 import id.co.dif.base_project.utils.orDefault
@@ -38,7 +39,7 @@ class MarkerPopupDialog(val marker: MarkerTripleE?) :
         }
 
         Log.d("TAG", "onViewCreated: ${marker?.image}")
-        binding.imgIcon.loadImage(marker?.image, shimmerDrawable(), R.drawable.ic_bakti, circleCrop = true)
+        binding.imgIcon.loadImage(marker?.image, shimmerDrawable(), R.drawable.icon_excavator, circleCrop = true)
         binding.btnSelectThisSite.isVisible = isSiteSelectable
         binding.titleSelectThisSite.isVisible = isSiteSelectable
         binding.textAddress.text = marker?.site_addre_street
@@ -48,7 +49,19 @@ class MarkerPopupDialog(val marker: MarkerTripleE?) :
             "site",
             "TT Site All" -> {
                 binding.textName.text = marker?.site_name
-                binding.textPic.text = marker?.site_end_customer
+                val randomStrings = arrayOf(
+                    "Tharik",
+                    "Gilang",
+                    "Ikky",
+                    "Mirza",
+                    "Adi"
+                )
+
+                val random = java.util.Random()
+                val randomIndex = random.nextInt(randomStrings.size) // Generates a random index within the array size
+                val randomString = randomStrings[randomIndex]
+                binding.textPic.text = randomString
+//                binding.textPic.text = marker?.site_end_customer
                 binding.textAddress.text = marker?.site_addre_street
                 binding.contactPhone.text = marker?.site_contact_phone.orDefault()
                 binding.tvAddress.text = marker.site_address_kelurahan
@@ -73,7 +86,7 @@ class MarkerPopupDialog(val marker: MarkerTripleE?) :
         binding.btnDetail.setOnClickListener {
             if (marker?.type == "TT Site All") {
                 preferences.selectedSite.value=marker
-                startActivity(Intent(requireContext(), MapSiteActivity::class.java))
+                startActivity(Intent(requireContext(), HomeDetailInfoActivity::class.java))
 //                TicketListPopupDialog.newInstance(marker).show(
 //                    childFragmentManager,
 //                    TicketListPopupDialog::class.java.name

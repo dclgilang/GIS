@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "id.co.dif.base_project"
-        minSdk 21
+        minSdk 22
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -262,6 +262,20 @@ dependencies {
 
     implementation "androidx.core:core-ktx:1.6.0" // For Kotlin extensions
 
+
+    // playerview
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.16.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.16.1'
+    implementation 'com.github.anastr:speedviewlib:1.6.1'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'com.github.ibrahimsn98:speedometer:1.0.1'
+
+    implementation 'com.github.Gruzer:simple-gauge-android:0.3.1'
+
+    // chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
 

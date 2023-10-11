@@ -55,7 +55,7 @@ class MeFragment : BaseFragment<MeViewModel, FragmentMeBinding>(), KoinComponent
                 }
                 preferences.myDetailProfile.value = it.data
                 it.data.photo_profile?.let { encoded ->
-                    binding.imageMe.loadImage(encoded, shimmerDrawable(), skipMemoryCaching = true)
+                    binding.imageMe.setImageBitmap(base64ImageToBitmap(encoded))
                 }
 
                 it.data.cover?.let { cover ->

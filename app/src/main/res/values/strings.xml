@@ -17,6 +17,10 @@
     <string name="change_password">Change Password</string>
     <string name="change_log">Change Log</string>
     <string name="maps">MAPS</string>
+    <string name="real_time_report">RealTime Report</string>
+    <string name="real_time_monitor">RealTime Monitor</string>
+    <string name="unit_location">Unit Location</string>
+    <string name="log_report">Log Report</string>
     <string name="logout">Logout</string>
     <string name="all">ALl</string>
     <string-array name="Spinner_Items">
@@ -450,6 +454,7 @@
     <string name="email_main">Email main</string>
     <string name="click_to_view_cv">Click to view CV</string>
     <string name="wellcome_to_geographic_information_system">Wellcome to, \nGeographic Information System</string>
+    <string name="temperature_c">TEMPERATURE C</string>
 
 
     <string-array name="country_codes">

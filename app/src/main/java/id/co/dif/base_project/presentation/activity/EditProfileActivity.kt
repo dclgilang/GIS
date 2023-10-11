@@ -103,7 +103,7 @@ class EditProfileActivity : BaseActivity<EditProfileViewModel, ActivityEditProfi
         binding.skillBusiness.setValue(info?.skill?.Business ?: 0F)
 
         info?.photo_profile?.let { encoded ->
-            binding.imgProfile.loadImage(encoded, shimmerDrawable(), skipMemoryCaching = true)
+            binding.imgProfile.setImageBitmap(base64ImageToBitmap(encoded))
         }
         info?.cover?.let { image ->
             Log.d(TAG, "coverrrrr: $image")

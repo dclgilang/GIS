@@ -51,20 +51,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_circle_marker" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/view_alert"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="0dp"
-        app:cardCornerRadius="40dp">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/view_alert"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:cardElevation="0dp"-->
+<!--        app:cardCornerRadius="40dp">-->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/baseline_info_24"
-            app:tint="@color/light_orange" />
-    </androidx.cardview.widget.CardView>
+<!--        <ImageView-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/baseline_info_24"-->
+<!--            app:tint="@color/light_orange" />-->
+<!--    </androidx.cardview.widget.CardView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

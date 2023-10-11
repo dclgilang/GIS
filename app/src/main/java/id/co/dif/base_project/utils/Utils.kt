@@ -510,7 +510,7 @@ fun Context.makeClusterItemMarker(bitmap: Bitmap, item: id.co.dif.base_project.d
     markerBinding.imgMarker.setImageBitmap(bitmap)
     item?.locationIsUpdated?.let { isReady ->
         val isAlertIsOn = !isReady
-        markerBinding.viewAlert.isVisible = isAlertIsOn
+//        markerBinding.viewAlert.isVisible = isAlertIsOn
     }
     val iconGen = IconGenerator(this).apply {
         setContentView(markerBinding.root)

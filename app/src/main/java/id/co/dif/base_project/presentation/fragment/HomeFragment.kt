@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -211,6 +212,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
     }
 
     override fun onClusterItemClick(marker: MarkerTripleE): Boolean {
+        viewModel.visitedLocations.apply {
+            clear()
+            add(marker)
+            viewModel.currentSelectedLocation.value = marker
+        }
+        viewModel.visitedLocations.log("sdfdsfdsfdsf"){it.size}
         binding.etSearch.clearFocus()
         map.zoom(clusterManager, marker) {
             when (LocationType.fromString(marker.type)) {
@@ -243,7 +250,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
                 else -> {}
             }
         }
-        return true
+        return false
 
     }
 
@@ -271,7 +278,5 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
         map.zoom(clusterManager, cluster.items.toList())
         return true
     }
-
-
 
 }

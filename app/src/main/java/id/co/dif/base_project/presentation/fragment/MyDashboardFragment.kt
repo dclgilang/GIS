@@ -86,7 +86,7 @@ class MyDashboardFragment :
                     binding.header.loadImage(it, shimmerDrawable())
                 }
                 it.photo_profile?.let { encoded ->
-                    binding.imgProfile.loadImage(encoded, shimmerDrawable(), skipMemoryCaching = true)
+                    binding.imgProfile.setImageBitmap(base64ImageToBitmap(encoded))
                 }
             }
         }

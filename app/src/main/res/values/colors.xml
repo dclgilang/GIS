@@ -61,6 +61,8 @@
     <color name="light_green">#67CF94</color>
     <color name="green">#7EB437</color>
     <color name="purple">#6045e2</color>
+    <color name="fuelProgressBarBackground">#CCCCCC</color>
+    <color name="fuelProgressBar">#FFA500</color>
 
     <color name="blue">#24A5BF</color>
 

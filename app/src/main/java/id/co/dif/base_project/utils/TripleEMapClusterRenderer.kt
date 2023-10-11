@@ -14,6 +14,7 @@ import id.co.dif.base_project.R
 import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
 import org.koin.core.component.KoinComponent
+import java.util.Random
 
 class TripleEMapClusterRenderer(
     val context: Context,
@@ -22,10 +23,23 @@ class TripleEMapClusterRenderer(
 ) : DefaultClusterRenderer<MarkerTripleE>(context, map, clusterManager), KoinComponent {
     val items: MutableList<MarkerTripleE> = mutableListOf()
     private val icBakti: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_bakti)
+    private val icExcavator: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.icon_excavator)
+    private val icBoat: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_boat)
+    private val icApartement: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_apartement)
     private val brokenImage: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.baseline_broken_image_24)
     private val alarm = context.toBitmapDescriptor(R.drawable.ic_alarm_high_quality)
     private val person = context.toBitmapDescriptor(R.drawable.ic_person)
-    private val images = mapOf<String, BitmapDescriptor?>(
+
+    val random = Random()
+    val randomIndex = random.nextInt(4)
+    val randomBitmapDescriptor: BitmapDescriptor? = when (randomIndex) {
+        0 -> icBakti
+        1 -> icExcavator
+        2 -> icBoat
+        3 -> icApartement
+        else -> icExcavator // Default to a specific image (you can change it as needed)
+    }
+        private val images = mapOf<String, BitmapDescriptor?>(
         "_2.png" to context.toBitmapDescriptor(R.drawable._2),
         "_1.png" to context.toBitmapDescriptor(R.drawable._1),
         "_24.png" to context.toBitmapDescriptor(R.drawable._24),
@@ -55,7 +69,7 @@ class TripleEMapClusterRenderer(
     }
 
     override fun shouldRenderAsCluster(cluster: Cluster<MarkerTripleE>): Boolean {
-        return cluster.size > 1
+        return cluster.size > 100
     }
 
     private fun loadMarker(markerOptions: MarkerOptions, item: MarkerTripleE) {
@@ -73,11 +87,12 @@ class TripleEMapClusterRenderer(
                 if (loaded != null) BitmapDescriptorFactory.fromBitmap(context.makeClusterItemMarker(loaded.circularCrop(), item)) else person
             }
 
+
             LocationType.Site, LocationType.TtSiteAll -> {
                 val resName = "_" + item.image?.substringAfterLast('/')
                 val resource = images[resName]
 
-                resource ?: icBakti
+                resource ?: icExcavator
             }
 
             LocationType.TtMapAll -> alarm
