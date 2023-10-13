@@ -572,6 +572,27 @@ fun loadImage(context: Context, url: String?, onSuccess: (Bitmap) -> Unit, type:
             R.drawable.ic_bakti.drawableRes(context)!!,
             target
         )
+
+        LocationType.Site, LocationType.Kapal -> loadImage(
+            url,
+            onSuccess,
+            R.drawable.ic_bakti.drawableRes(context)!!,
+            target
+        )
+
+        LocationType.Site, LocationType.Apartement -> loadImage(
+            url,
+            onSuccess,
+            R.drawable.ic_bakti.drawableRes(context)!!,
+            target
+        )
+
+        LocationType.Site, LocationType.Excavator -> loadImage(
+            url,
+            onSuccess,
+            R.drawable.ic_bakti.drawableRes(context)!!,
+            target
+        )
     }
 }
 

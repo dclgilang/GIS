@@ -117,6 +117,8 @@ class TTDashboardFragment() :
         setupChartSelectedChip()
         binding.rvOverallRank.adapter = overallRankAdapter
 
+        binding.chartNumberOfUpload
+
         binding.tvValueEmployeeName.setText("${session?.name}")
         binding.etDailyTicketTrendInput.setText(session?.name)
         binding.tvValueInstitution.setText("${session?.emp_position}")

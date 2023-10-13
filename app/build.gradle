@@ -55,7 +55,7 @@ android {
         }
         production {
             flavorDimensions "main"
-            buildConfigField 'String', 'BASE_URL', "\"https://api-be.twentyplus.id:5050/api/v1/\""
+            buildConfigField 'String', 'BASE_URL', "\"https://api-watson.dif.co.id/api/v1/\""
 //            buildConfigField 'String', 'BASE_URL', "\"https://private-178c7c-album5.apiary-mock.com/\""
         }
 

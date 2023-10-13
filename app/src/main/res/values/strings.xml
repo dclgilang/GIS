@@ -11,6 +11,7 @@
     <string name="ticket">TICKET</string>
     <string name="technician">Technician</string>
     <string name="dashboard">Dashboard</string>
+    <string name="cctv_monitor">CCTV Monitor</string>
     <string name="message">Message</string>
     <string name="setting">Settings</string>
     <string name="activity">Activity</string>
@@ -454,7 +455,7 @@
     <string name="email_main">Email main</string>
     <string name="click_to_view_cv">Click to view CV</string>
     <string name="wellcome_to_geographic_information_system">Wellcome to, \nGeographic Information System</string>
-    <string name="temperature_c">TEMPERATURE C</string>
+    <string name="temperature_c">Temperature</string>
 
 
     <string-array name="country_codes">

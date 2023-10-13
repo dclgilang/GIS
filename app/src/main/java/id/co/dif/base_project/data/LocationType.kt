@@ -12,6 +12,11 @@ sealed class LocationType(
     object TtMapAll : LocationType("TT Map All")
     object Note : LocationType("note")
 
+    object Kapal : LocationType("Kapal")
+    object Apartement : LocationType("Apartement")
+
+    object Excavator : LocationType("Excavator")
+
     companion object {
         fun fromString(type: String): LocationType {
             return when (type.lowercase()) {
@@ -20,6 +25,9 @@ sealed class LocationType(
                 "technician" -> Technician
                 "tt map all" -> TtMapAll
                 "note" -> Note
+                "kapal" -> Kapal
+                "apartement" -> Apartement
+                "excavator" -> Excavator
                 else -> {
                     Log.w("TAG", "MarkerTripleE Type: $type is not recognized!")
                     Site

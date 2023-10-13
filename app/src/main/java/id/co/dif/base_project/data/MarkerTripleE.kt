@@ -70,7 +70,8 @@ class MarkerTripleE(
         if (type == "technician") {
             return name
         } else {
-            return site_name
+            return type
+//            return site_name
         }
     }
 

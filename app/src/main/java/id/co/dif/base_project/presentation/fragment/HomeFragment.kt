@@ -211,6 +211,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
         clusterManager.renderer = TripleEMapClusterRenderer(context, map, clusterManager)
     }
 
+    private fun clearClusterMarkers() {
+        clusterManager.clearItems()
+    }
+
     override fun onClusterItemClick(marker: MarkerTripleE): Boolean {
         viewModel.visitedLocations.apply {
             clear()
@@ -242,6 +246,20 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
                 }
 
                 LocationType.Site -> MarkerPopupDialog.newInstance(marker).show(
+                    childFragmentManager,
+                    MarkerPopupDialog::class.java.name
+                )
+                LocationType.Kapal -> MarkerPopupDialog.newInstance(marker).show(
+                    childFragmentManager,
+                    MarkerPopupDialog::class.java.name
+                )
+
+                LocationType.Apartement -> MarkerPopupDialog.newInstance(marker).show(
+                    childFragmentManager,
+                    MarkerPopupDialog::class.java.name
+                )
+
+                LocationType.Excavator -> MarkerPopupDialog.newInstance(marker).show(
                     childFragmentManager,
                     MarkerPopupDialog::class.java.name
                 )

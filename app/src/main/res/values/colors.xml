@@ -52,19 +52,20 @@
     <color name="alpha_60_green_moss">#99858004</color>
 
     <color name="dark_pink">#D13AD4</color>
-    <color name="red">#EE4545</color>
+    <color name="red">#D32F2F</color>
+    <color name="yellow">#FFEB3B</color>
     <color name="green_moss">#858004</color>
     <color name="light_blue">#4f9df8</color>
     <color name="darker_blue">#007bff</color>
     <color name="darkerer_blue">#0756AB</color>
     <color name="light_orange">#feb959</color>
     <color name="light_green">#67CF94</color>
-    <color name="green">#7EB437</color>
+    <color name="green">#388E3C</color>
     <color name="purple">#6045e2</color>
     <color name="fuelProgressBarBackground">#CCCCCC</color>
     <color name="fuelProgressBar">#FFA500</color>
 
-    <color name="blue">#24A5BF</color>
+    <color name="blue">#448AFF</color>
 
     <!-- Replace with your desired color -->
     <!-- Replace with your desired color -->

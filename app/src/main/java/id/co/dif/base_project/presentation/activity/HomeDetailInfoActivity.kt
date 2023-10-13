@@ -20,6 +20,7 @@ import id.co.dif.base_project.data.TabMenuItem
 import id.co.dif.base_project.databinding.ActivityHomeDetailInfoBinding
 import id.co.dif.base_project.presentation.adapter.TitledViewPagerAdapter
 import id.co.dif.base_project.presentation.adapter.ViewPagerAdapter
+import id.co.dif.base_project.presentation.fragment.CctvFragment
 import id.co.dif.base_project.presentation.fragment.HistoryFragment
 import id.co.dif.base_project.presentation.fragment.MapsTicketFragment
 import id.co.dif.base_project.presentation.fragment.RealTimeReportFragment
@@ -51,13 +52,19 @@ class HomeDetailInfoActivity : BaseActivity<MapSiteViewModel, ActivityHomeDetail
 //        binding.viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager, tabMenuItems)
 //        binding.tabLayout.setupWithViewPager(binding.viewPager)
 
+    binding.rootLayout.onBackButtonClicked = {
+        onBackPressedDispatcher.onBackPressed()
+        stopDataUpdateInFragment()
+    }
+
     viewModel.responseaGetSiteByid.observe(lifecycleOwner){
         if(it.status == 200) {
             preferences.siteData.value= it.data
             val tabMenuItems = mutableListOf<TabMenuItem>()
+//            tabMenuItems.add(TabMenuItem(getString(R.string.dashboard),ReportingDashboardFragment()))
             tabMenuItems.add(TabMenuItem(getString(R.string.real_time_monitor), RealTimeReportFragment()))
-            tabMenuItems.add(TabMenuItem(getString(R.string.unit_location),UnitLocationFragment()))
-            tabMenuItems.add(TabMenuItem(getString(R.string.dashboard),ReportingDashboardFragment()))
+            tabMenuItems.add(TabMenuItem(getString(R.string.cctv_monitor),CctvFragment()))
+//            tabMenuItems.add(TabMenuItem(getString(R.string.unit_location),UnitLocationFragment()))
 
             binding.viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager, tabMenuItems)
             binding.tabLayout.setupWithViewPager(binding.viewPager)
@@ -66,6 +73,11 @@ class HomeDetailInfoActivity : BaseActivity<MapSiteViewModel, ActivityHomeDetail
 
     viewModel.getSiteById(preferences.selectedSite.value?.site_id)
 
-
 }
+
+    private fun stopDataUpdateInFragment() {
+        val fragment = supportFragmentManager.findFragmentByTag("realtimeFragmentTag") as RealTimeReportFragment?
+        fragment?.stopDataUpdate()
+    }
+
 }

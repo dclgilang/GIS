@@ -95,6 +95,27 @@ class TripleEMapClusterRenderer(
                 resource ?: icExcavator
             }
 
+           LocationType.Kapal -> {
+                val resName = "_" + item.image?.substringAfterLast('/')
+                val resource = images[resName]
+
+                resource ?: icBoat
+            }
+
+            LocationType.Apartement -> {
+                val resName = "_" + item.image?.substringAfterLast('/')
+                val resource = images[resName]
+
+                resource ?: icApartement
+            }
+
+           LocationType.Excavator -> {
+                val resName = "_" + item.image?.substringAfterLast('/')
+                val resource = images[resName]
+
+                resource ?: icExcavator
+            }
+
             LocationType.TtMapAll -> alarm
         }
         markerOptions.icon(bitmapDescriptor)
