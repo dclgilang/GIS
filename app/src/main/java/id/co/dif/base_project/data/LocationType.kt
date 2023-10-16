@@ -17,6 +17,8 @@ sealed class LocationType(
 
     object Excavator : LocationType("Excavator")
 
+    object Generator : LocationType("Generator")
+
     companion object {
         fun fromString(type: String): LocationType {
             return when (type.lowercase()) {
@@ -28,6 +30,7 @@ sealed class LocationType(
                 "kapal" -> Kapal
                 "apartement" -> Apartement
                 "excavator" -> Excavator
+                "generator" -> Generator
                 else -> {
                     Log.w("TAG", "MarkerTripleE Type: $type is not recognized!")
                     Site

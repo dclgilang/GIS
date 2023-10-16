@@ -40,6 +40,9 @@
         tools:replace="android:allowBackup"
         tools:targetApi="33">
         <activity
+            android:name=".presentation.activity.PowerGeneratorDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.activity.HomeDetailInfoActivity"
             android:exported="false" />
         <activity

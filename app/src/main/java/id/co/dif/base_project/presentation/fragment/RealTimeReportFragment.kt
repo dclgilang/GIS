@@ -111,10 +111,10 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
         val xAxis: XAxis = binding.chartNumberOfUpload.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textSize = 12f
-        xAxis.textColor = Color.BLACK
+        xAxis.textColor = Color.WHITE
 
         val yAxisLeft: YAxis = binding.chartNumberOfUpload.axisLeft
-        yAxisLeft.textColor = Color.BLACK
+        yAxisLeft.textColor = Color.WHITE
         yAxisLeft.setDrawGridLines(true)
 
         val yAxisRight: YAxis = binding.chartNumberOfUpload.axisRight
@@ -122,7 +122,7 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
 
         val legend: Legend = binding.chartNumberOfUpload.legend
         legend.form = Legend.LegendForm.LINE
-        legend.textColor = Color.BLACK
+        legend.textColor = Color.WHITE
 
 
         val otherentries = ArrayList<Entry>()

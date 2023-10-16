@@ -277,6 +277,9 @@ dependencies {
     // chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // progress bar
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+
 
 
 

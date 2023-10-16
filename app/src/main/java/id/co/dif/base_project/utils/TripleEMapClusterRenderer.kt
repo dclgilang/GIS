@@ -10,6 +10,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
+import com.google.maps.android.ui.IconGenerator
 import id.co.dif.base_project.R
 import id.co.dif.base_project.data.MarkerTripleE
 import id.co.dif.base_project.data.LocationType
@@ -25,6 +26,7 @@ class TripleEMapClusterRenderer(
     private val icBakti: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_bakti)
     private val icExcavator: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.icon_excavator)
     private val icBoat: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_boat)
+    private val icGenerator: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_power_generator)
     private val icApartement: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.ic_apartement)
     private val brokenImage: BitmapDescriptor? = context.toBitmapDescriptor(R.drawable.baseline_broken_image_24)
     private val alarm = context.toBitmapDescriptor(R.drawable.ic_alarm_high_quality)
@@ -114,6 +116,13 @@ class TripleEMapClusterRenderer(
                 val resource = images[resName]
 
                 resource ?: icExcavator
+            }
+
+            LocationType.Generator -> {
+                val resName = "_" + item.image?.substringAfterLast('/')
+                val resource = images[resName]
+
+                resource ?: icGenerator
             }
 
             LocationType.TtMapAll -> alarm

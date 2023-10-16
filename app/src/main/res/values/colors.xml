@@ -60,12 +60,15 @@
     <color name="darkerer_blue">#0756AB</color>
     <color name="light_orange">#feb959</color>
     <color name="light_green">#67CF94</color>
-    <color name="green">#388E3C</color>
+    <color name="green">#4CAF50</color>
     <color name="purple">#6045e2</color>
     <color name="fuelProgressBarBackground">#CCCCCC</color>
     <color name="fuelProgressBar">#FFA500</color>
 
     <color name="blue">#448AFF</color>
+    <color name="start">#ffff00</color>
+    <color name="end">#455a64</color>
+    <color name="centre">#ff5722</color>
 
     <!-- Replace with your desired color -->
     <!-- Replace with your desired color -->

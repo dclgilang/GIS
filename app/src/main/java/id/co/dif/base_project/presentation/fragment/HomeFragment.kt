@@ -264,6 +264,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(), OnMapRe
                     MarkerPopupDialog::class.java.name
                 )
 
+                LocationType.Generator -> MarkerPopupDialog.newInstance(marker).show(
+                    childFragmentManager,
+                    MarkerPopupDialog::class.java.name
+                )
+
                 LocationType.Note -> Unit
                 else -> {}
             }
