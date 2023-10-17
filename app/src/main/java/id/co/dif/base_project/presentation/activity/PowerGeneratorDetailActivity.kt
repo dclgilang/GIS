@@ -8,8 +8,10 @@ import id.co.dif.base_project.base.BaseViewModel
 import id.co.dif.base_project.data.TabMenuItem
 import id.co.dif.base_project.databinding.ActivityPowerGeneratorDetailBinding
 import id.co.dif.base_project.presentation.adapter.ViewPagerAdapter
+import id.co.dif.base_project.presentation.fragment.BasicReadingFragment
 import id.co.dif.base_project.presentation.fragment.CctvFragment
 import id.co.dif.base_project.presentation.fragment.EnergyMonitorFragment
+import id.co.dif.base_project.presentation.fragment.PowerQualityFragment
 import id.co.dif.base_project.presentation.fragment.RealTimeReportFragment
 import id.co.dif.base_project.presentation.fragment.ReportingDashboardFragment
 import id.co.dif.base_project.viewmodel.HomeViewModel
@@ -25,6 +27,9 @@ class PowerGeneratorDetailActivity : BaseActivity<MapSiteViewModel, ActivityPowe
                 preferences.siteData.value= it.data
                 val tabMenuItems = mutableListOf<TabMenuItem>()
                 tabMenuItems.add(TabMenuItem(getString(R.string.energy_monitor), EnergyMonitorFragment()))
+                tabMenuItems.add(TabMenuItem(getString(R.string.basic_reading), BasicReadingFragment()))
+                tabMenuItems.add(TabMenuItem(getString(R.string.basic_reading), PowerQualityFragment()))
+
                 binding.viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager, tabMenuItems)
                 binding.tabLayout.setupWithViewPager(binding.viewPager)
             }

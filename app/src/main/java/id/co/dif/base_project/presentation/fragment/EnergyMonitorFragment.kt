@@ -3,6 +3,8 @@ package id.co.dif.base_project.presentation.fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -25,9 +27,22 @@ class EnergyMonitorFragment : BaseFragment<EnergyMonitorViewModel, FragmentEnerg
         setdataApparentEnergy()
         setdataReactiveEnergy()
 
-        binding.btnDaily.setOnClickListener { generateAndSetChartData("Daily") }
-        binding.btnWeekly.setOnClickListener { generateAndSetChartData("Weekly") }
-        binding.btnMonthly.setOnClickListener { generateAndSetChartData("Monthly") }
+        binding.btnMonthly.setOnClickListener { view ->
+            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            generateAndSetChartData("Daily")
+        }
+        binding.btnWeekly.setOnClickListener { view ->
+            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            generateAndSetChartData("Weekly")
+        }
+        binding.btnDaily.setOnClickListener { view ->
+            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            generateAndSetChartData("Monthly")
+        }
+
+//        binding.btnDaily.setOnClickListener { generateAndSetChartData("Daily") }
+//        binding.btnWeekly.setOnClickListener { generateAndSetChartData("Weekly") }
+//        binding.btnMonthly.setOnClickListener { generateAndSetChartData("Monthly") }
 
         generateAndSetChartData("Daily")
 
@@ -94,15 +109,24 @@ class EnergyMonitorFragment : BaseFragment<EnergyMonitorViewModel, FragmentEnerg
         val colorHzData = Color.BLUE
 
         val dataSetActiveEnergy = LineDataSet(entriesActiveEnergy, "Active (kWh)")
-         dataSetActiveEnergy.color = colorActiveEnergy
+        dataSetActiveEnergy.valueTextSize = 8f
+        dataSetActiveEnergy.color = colorActiveEnergy
         dataSetActiveEnergy.setCircleColor(colorActiveEnergy)
+
         val dataSetApparentEnergy = LineDataSet(entriesApparentEnergy, "Apparent (kVAh)")
+        dataSetApparentEnergy.valueTextSize = 8f
         dataSetApparentEnergy.color = colorApparentEnergy
+        dataSetApparentEnergy.getValueTextColor(Color.WHITE)
         dataSetApparentEnergy.setCircleColor(colorApparentEnergy)
+
         val dataSetReactiveEnergy = LineDataSet(entriesReactiveEnergy, "Reactive (kVArh)")
+        dataSetReactiveEnergy.valueTextSize = 8f
         dataSetReactiveEnergy.color = colorReactiveEnergy
         dataSetReactiveEnergy.setCircleColor(colorReactiveEnergy)
+
         val dataSetHzData = LineDataSet(entriesHzData, "Frequency (Hz)")
+        dataSetHzData.setCircleColor(Color.WHITE)
+        dataSetHzData.valueTextSize = 8f
         dataSetHzData.color = colorHzData
         dataSetHzData.setCircleColor(colorHzData)
 
@@ -114,6 +138,14 @@ class EnergyMonitorFragment : BaseFragment<EnergyMonitorViewModel, FragmentEnerg
         val lineData = LineData(dataSetList)
         binding.comparechart.data = lineData
         binding.comparechart.invalidate()
+
+        binding.comparechart.xAxis.textSize = 8f
+        binding.comparechart.xAxis.textColor = Color.WHITE
+        binding.comparechart.axisLeft.textSize = 8f // Set the left (Y) axis label text size
+        binding.comparechart.axisLeft.textColor = Color.WHITE // Set the left (Y) axis label text color
+
+        binding.comparechart.axisRight.textSize = 8f // Set the right (Y) axis label text size
+        binding.comparechart.axisRight.textColor = Color.WHITE
     }
 
     private fun setdataTotalEnergy(){

@@ -279,6 +279,10 @@ dependencies {
 
     // progress bar
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+    implementation 'com.github.owl-93.Determinate-Progress-View:release:v1.4.4'
+
+    // speed meters
+    implementation 'com.github.anastr:speedviewlib:1.6.0'
 
 
 

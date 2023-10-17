@@ -21,6 +21,8 @@
     <string name="real_time_report">RealTime Report</string>
     <string name="real_time_monitor">RealTime Monitor</string>
     <string name="energy_monitor">Energy Monitor</string>
+    <string name="basic_reading">Basic Reading</string>
+    <string name="power_quality">Power Quality</string>
     <string name="unit_location">Unit Location</string>
     <string name="log_report">Log Report</string>
     <string name="logout">Logout</string>
