@@ -65,3 +65,4 @@ abstract class BaseAdapter<VM : BaseViewModel, VB : ViewBinding, T : BaseData> :
 
     abstract fun onLoadItem(binding: VB, data: MutableList<T>, position: Int)
 }
+

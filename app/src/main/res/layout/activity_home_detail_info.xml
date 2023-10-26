@@ -9,6 +9,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:actionButtonTint="@color/purple"
+        app:barTint="#212946"
+        app:titleTextColor="@color/white"
+        app:backButtonTint="@color/white"
         app:backButtonIcon="@drawable/baseline_arrow_back_ios_new_24"
         tools:title="Detail">
 
@@ -21,12 +24,12 @@
             android:background="@color/white"
             android:textSize="12sp"
             app:tabGravity="center"
-            app:tabIndicator="@drawable/bg_tab_indicator"
-            app:tabIndicatorColor="#FF29B6F6"
+            app:tabIndicator="@drawable/bg_tab_indicator_unit"
+            app:tabIndicatorColor="#212946"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="5dp"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="#FF29B6F6"
+            app:tabSelectedTextColor="#212946"
             app:tabTextAppearance="@style/MyTablayoutItemStyle"
             app:tabTextColor="#404040" />
 

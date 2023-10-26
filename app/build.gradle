@@ -283,6 +283,7 @@ dependencies {
 
     // speed meters
     implementation 'com.github.anastr:speedviewlib:1.6.0'
+    implementation 'com.github.anastr:speedviewlib:1.3.1'
 
 
 

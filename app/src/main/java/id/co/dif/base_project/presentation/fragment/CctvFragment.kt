@@ -20,9 +20,9 @@ import id.co.dif.base_project.databinding.FragmentCctvBinding
 class CctvFragment : BaseFragment<BaseViewModel, FragmentCctvBinding>() {
     override val layoutResId = R.layout.fragment_cctv
 
-    private val videoURL1 = "https://media.lewatmana.com/cam/mirslipi/133/video-20000113-102049.384.mp4"
+    private val videoURL1 = "https://media.lewatmana.com/cam/sctv/169/video-20230918-072202.384.mp4"
     private val videoURL2 = "https://media.lewatmana.com/cam/sotisresidence/332/videoclip19700101_001500.384.mp4"
-    private val videoURL3 = "https://media.lewatmana.com/cam/infovista/231/mp420231012_112834.384.mp4"
+    private val videoURL3 = "https://media.lewatmana.com/cam/celvasha/336/video20231018_155518.384.mp4"
     private lateinit var videoUri1: Uri
     private lateinit var videoUri2: Uri
     private lateinit var videoUri3: Uri

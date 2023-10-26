@@ -28,7 +28,7 @@ class PowerGeneratorDetailActivity : BaseActivity<MapSiteViewModel, ActivityPowe
                 val tabMenuItems = mutableListOf<TabMenuItem>()
                 tabMenuItems.add(TabMenuItem(getString(R.string.energy_monitor), EnergyMonitorFragment()))
                 tabMenuItems.add(TabMenuItem(getString(R.string.basic_reading), BasicReadingFragment()))
-                tabMenuItems.add(TabMenuItem(getString(R.string.basic_reading), PowerQualityFragment()))
+                tabMenuItems.add(TabMenuItem(getString(R.string.power_quality), PowerQualityFragment()))
 
                 binding.viewPager.adapter = ViewPagerAdapter(this, supportFragmentManager, tabMenuItems)
                 binding.tabLayout.setupWithViewPager(binding.viewPager)

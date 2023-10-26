@@ -27,16 +27,31 @@ class EnergyMonitorFragment : BaseFragment<EnergyMonitorViewModel, FragmentEnerg
         setdataApparentEnergy()
         setdataReactiveEnergy()
 
+        binding.btnDaily.setBackgroundResource(R.drawable.bg_button_data_power_uncheked)
+        binding.btnDaily.setTextColor(Color.WHITE)
+
         binding.btnMonthly.setOnClickListener { view ->
-            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+//            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnMonthly.setBackgroundResource(R.drawable.bg_button_data_power_uncheked)
+            binding.btnDaily.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnWeekly.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnMonthly.setTextColor(Color.WHITE)
             generateAndSetChartData("Daily")
         }
         binding.btnWeekly.setOnClickListener { view ->
-            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+//            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnWeekly.setBackgroundResource(R.drawable.bg_button_data_power_uncheked)
+            binding.btnDaily.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnMonthly.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnWeekly.setTextColor(Color.WHITE)
             generateAndSetChartData("Weekly")
         }
         binding.btnDaily.setOnClickListener { view ->
-            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+//            view.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnDaily.setBackgroundResource(R.drawable.bg_button_data_power_uncheked)
+            binding.btnMonthly.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnWeekly.setBackgroundResource(R.drawable.bg_button_selector_data_power)
+            binding.btnDaily.setTextColor(Color.WHITE)
             generateAndSetChartData("Monthly")
         }
 

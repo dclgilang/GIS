@@ -41,10 +41,20 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
     private val stableProgressRange = 50..60
     private val jumpingProgressRange = 80..100
     private var isStableRange = true
+    private var fuelValue = 100
 
     private var currentProgress = 90 // Initial progress
 
+    private val updateRunnableFuel = object : Runnable {
+        override fun run() {
+            updateSpeedValue()
+            handler.postDelayed(this, 1000)
+        }
+    }
+
     override fun onViewBindingCreated(savedInstanceState: Bundle?) {
+
+        handler.postDelayed(updateRunnableFuel, 1000)
 
 
         val range = com.ekn.gruzer.gaugelibrary.Range()
@@ -62,20 +72,22 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
         range3.from = 100.0
         range3.to = 150.0
 
-        //add color ranges to gauge
-        binding.gauge.addRange(range)
-        binding.gauge.addRange(range2)
-        binding.gauge.addRange(range3)
 
-        //set min max and current value
-        binding.gauge.minValue = 0.0
-        binding.gauge.maxValue = 150.0
+        // add color ranges to gauge
+//        binding.gauge.addRange(range)
+//        binding.gauge.addRange(range2)
+//        binding.gauge.addRange(range3)
+//
+//        //set min max and current value
+//        binding.gauge.minValue = 0.0
+//        binding.gauge.maxValue = 150.0
 //        binding.gauge.value = 120.0
+
 
        // Dummy data Fuel Consumtion
         val dailyEntries = ArrayList<Entry>()
-        for (day in 1..30) { // Assuming 30 days in a month
-            val consumption = random.nextFloat() * 250 // Random consumption value
+        for (day in 1..30) {
+            val consumption = random.nextFloat() * 250
             dailyEntries.add(Entry(day.toFloat(), consumption))
         }
         val dailyDataSet = LineDataSet(dailyEntries, "Daily Consumption")
@@ -150,6 +162,11 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
 
     }
 
+    private fun updateSpeedValue() {
+        fuelValue--
+        binding.gauge.speedTo(fuelValue.toFloat())
+        binding.tvSumAmount.text = "$fuelValue%"
+    }
     private fun startDataUpdate() {
         handler.post(updateRunnable)
     }
@@ -232,27 +249,27 @@ class RealTimeReportFragment : BaseFragment<BaseViewModel, FragmentRealTimeRepor
 
     }
 
-    private fun setIndicatorColor(progress: Int) {
-        when {
-            progress >= 0 && progress < 30 -> binding.gauge.setGaugeBackGroundColor(Color.RED)
-            progress >= 30 && progress < 60 -> binding.gauge.setGaugeBackGroundColor(Color.YELLOW)
-            progress >= 60 && progress < 80 -> binding.gauge.setGaugeBackGroundColor(Color.GREEN)
-            progress >= 80 -> binding.gauge.setGaugeBackGroundColor(Color.BLUE)
-        }
-    }
+//    private fun setIndicatorColor(progress: Int) {
+//        when {
+//            progress >= 0 && progress < 30 -> binding.gauge.setGaugeBackGroundColor(Color.RED)
+//            progress >= 30 && progress < 60 -> binding.gauge.setGaugeBackGroundColor(Color.YELLOW)
+//            progress >= 60 && progress < 80 -> binding.gauge.setGaugeBackGroundColor(Color.GREEN)
+//            progress >= 80 -> binding.gauge.setGaugeBackGroundColor(Color.BLUE)
+//        }
+//    }
 
     private fun startProgressUpdate() {
         handler.postDelayed(object : Runnable {
             override fun run() {
                 currentProgress -= 1
                 binding.gauge.setBackgroundColor(currentProgress)
-                binding.gauge.value = currentProgress.toDouble()
+//                binding.gauge.value = currentProgress.toDouble()
 //                setIndicatorColor(currentProgress)
                 if (currentProgress > 0) {
                     handler.postDelayed(this, 1000)
                 }
             }
-        }, 1000) // Initial delay of 1 second
+        }, 1000)
     }
 
 
